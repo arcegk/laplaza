@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Plato , Menu
 from .forms import PanelForm
 from django.core.urlresolvers import reverse, reverse_lazy
+from braces.views import LoginRequiredMixin , StaffuserRequiredMixin
 
 
 
@@ -33,12 +34,13 @@ class platosView(View):
 		return HttpResponse(json.dumps(dic))
 
 
-class menuUpdateView(UpdateView):
+class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 
 	model = Menu
 	form_class = PanelForm
 	template_name = 'panel.html'
 	success_url = reverse_lazy('platos')
+	login_url = '/admin'
 	#lo comun de un updateview
 
 	def get_object(self):
