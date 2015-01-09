@@ -27,6 +27,10 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+        join(BASE_DIR, 'templates'),
+
+    )
 
 # Application definition
 

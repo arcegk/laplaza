@@ -21,18 +21,12 @@ class Plato(models.Model):
 	nombre = models.CharField(max_length=25)
 	precio = models.FloatField()
 	tipo = models.CharField(max_length=25 , choices = constants.TYPE)
-
+	
 	def __str__(self):
 
-		return ("%s - %s") %(self.nombre , self.precio)
+		return ("%s - %s") %(self.nombre , self.tipo)
 
-	def as_json(self):
-		return dict (
-			id = self.id ,
-			nombre = self.nombre ,
-			precio = self.precio , 
-			tipo = self.tipo, 
-		)
+	
 		
 
 class Pedido(models.Model):
@@ -41,3 +35,9 @@ class Pedido(models.Model):
 	orden = models.ManyToManyField(Plato)
 	arroz = models.BooleanField(default=True)
 	ensalada = models.BooleanField(default=True)
+
+
+class Menu(models.Model):
+
+	platos = models.ManyToManyField(Plato)
+
