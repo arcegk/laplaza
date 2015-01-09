@@ -56,6 +56,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    ('django.contrib.auth.backends.ModelBackend'),
+)
+
 ROOT_URLCONF = 'restaurante.urls'
 
 WSGI_APPLICATION = 'restaurante.wsgi.application'
@@ -104,3 +108,5 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
+LOGIN_REDIRECT_URL = '/panel'

@@ -40,7 +40,7 @@ class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 	form_class = PanelForm
 	template_name = 'panel.html'
 	success_url = reverse_lazy('platos')
-	login_url = '/admin'
+	login_url = '/login'
 	#lo comun de un updateview
 
 	def get_object(self):
