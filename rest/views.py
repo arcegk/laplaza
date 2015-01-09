@@ -6,7 +6,8 @@ from .models import Plato , Menu
 from .forms import PanelForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin
-
+from rest_framework.generic import ApiView
+from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
@@ -49,7 +50,28 @@ class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 
 	
 
+class pedidoApiView(ApiView):
 
-	
+	permission_classes = (IsAuthenticated, )
+
+	def post(request, self):
+
+		data = json.loads(request.POST['data'])
+		obj = Pedido()
+		obj.user = User.object.get(pk=data.user)
+		obj.arroz = data.arroz
+		obj.ensalada = data.ensalada
+		obj.save()
+
+		for itm in data.platos:
+			plt = Plato.objects.get(pk=itm)
+			obj.orden.add(plt)
+
+		return HttpResponse(json.dumps({'success' : True }))
+
+
+
+		
+
 
 
