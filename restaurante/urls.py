@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from rest.views import platosView , menuUpdateView , pedidoApiView
+from rest.views import platosView , menuUpdateView , pedidoApiView , userInfo
 
 urlpatterns = patterns('',
     # Examples:
@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     	menuUpdateView.as_view() , 
     	name='panel'),
 
-    url(r'^auth/', 
+    url(r'^auth', 
     	'rest_framework_jwt.views.obtain_jwt_token'),
 
     url(r'^login' ,
@@ -26,6 +26,10 @@ urlpatterns = patterns('',
 
     url(r'^pedido' ,
     	pedidoApiView.as_view() , 
-    	name='pedido-post' )
+    	name='pedido-post' ) ,
+
+    url(r'^info' ,
+    	userInfo.as_view() , 
+    	name='info')
 
 )

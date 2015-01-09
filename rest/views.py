@@ -7,7 +7,9 @@ from .forms import PanelForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+
 
 
 # Create your views here.
@@ -48,13 +50,30 @@ class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 		return Menu.objects.get(pk=1)
 		#para no tener que pasar el pk por el id le asigno uno por defecto
 
+
+class userInfo(APIView):
+
+	permission_classes = (IsAuthenticated,)
+	
+
+
+	def get(self , request):
+
+		data ={
+			'id' : request.user.id ,
+			'username' : request.user.username ,
+
+		}
+		return Response(data)
+
 	
 
 class pedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
+	
 
-	def post(request, self):
+	def post(self, request):
 
 		data = json.loads(request.POST['data'])
 		obj = Pedido()
