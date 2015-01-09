@@ -6,7 +6,7 @@ from .models import Plato , Menu
 from .forms import PanelForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin
-from rest_framework.generic import ApiView
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -50,7 +50,7 @@ class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 
 	
 
-class pedidoApiView(ApiView):
+class pedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
 
