@@ -112,4 +112,11 @@ REST_FRAMEWORK = {
         ),
 }
 
+JWT_AUTH = {
+
+    'JWT_VERIFY_EXPIRATION': False,
+
+
+}
+
 LOGIN_REDIRECT_URL = '/panel'

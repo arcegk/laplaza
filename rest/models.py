@@ -33,8 +33,8 @@ class Pedido(models.Model):
 
 	user = models.ForeignKey(User)
 	orden = models.ManyToManyField(Plato)
-	arroz = models.BooleanField(default=True)
-	ensalada = models.BooleanField(default=True)
+	direccion = models.CharField(max_length=25 , default='')
+	empresa = models.CharField(max_length=25 , default='')
 
 
 class Menu(models.Model):

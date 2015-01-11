@@ -1,11 +1,12 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic import ListView , View , UpdateView , FormView
-import json
+import json , ast
 from django.http import HttpResponse
-from .models import Plato , Menu
+from .models import Plato , Menu , Pedido , User
 from .forms import PanelForm
 from django.core.urlresolvers import reverse, reverse_lazy
-from braces.views import LoginRequiredMixin , StaffuserRequiredMixin
+from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -72,17 +73,21 @@ class pedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
 	
+	def get_context_data(self, **kwargs):
+	    context = super(pedidoApiView, self).get_context_data(**kwargs)
+	    return context
 
 	def post(self, request):
 
-		data = json.loads(request.POST['data'])
+		dta = json.loads(request.body)
+		data = dta['data']
 		obj = Pedido()
-		obj.user = User.object.get(pk=data.user)
-		obj.arroz = data.arroz
-		obj.ensalada = data.ensalada
+		obj.user = User.objects.get(pk=data['user'])
+		obj.direccion = data['direccion']
+		ob.empresa = data['empresa']
 		obj.save()
 
-		for itm in data.platos:
+		for itm in data['platos']:
 			plt = Plato.objects.get(pk=itm)
 			obj.orden.add(plt)
 
