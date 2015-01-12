@@ -5,5 +5,7 @@ TYPE = (
 	('CARNE' , 'CARNE'),
 	('ENSALADA' , 'ENSALADA'),
 	('ARROZ' , 'ARROZ'),
+	('BEBIDA' , 'BEBIDA')
+	('ADICIONAL' , 'ADICIONAL' )
 
 )
