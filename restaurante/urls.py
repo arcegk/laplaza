@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from rest.views import platosView , menuUpdateView , pedidoApiView , userInfo
+from rest.views import almuerzoView , menuUpdateView , pedidoApiView ,\
+     userInfo , desayunoView , userRegisterApiView
 
 urlpatterns = patterns('',
     # Examples:
@@ -9,9 +10,9 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
    
-    url(r'^platos/' , 
-    	platosView.as_view() ,
-    	name="platos"),
+    url(r'^almuerzos/' , 
+    	almuerzoView.as_view() ,
+    	name="almuerzos"),
 
     url(r'^panel/' , 
     	menuUpdateView.as_view() , 
@@ -30,6 +31,15 @@ urlpatterns = patterns('',
 
     url(r'^info' ,
     	userInfo.as_view() , 
-    	name='info')
+    	name='info') ,
+
+    url(r'^desayuno' ,
+        desayunoView.as_view(),
+        name = 'desayuno' ) ,
+
+    url(r'^registrar' , 
+        userRegisterApiView.as_view() ,
+        name = 'register') ,
+
 
 )

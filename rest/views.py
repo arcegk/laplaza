@@ -16,26 +16,55 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
-class platosView(View):
+class almuerzoView(View):
 
 	def get_context_data(self, **kwargs):
 	    context = super(platosListView, self).get_context_data(**kwargs)
 	    return context
 
-	def get(request , self):
+	def get(self, request):
 		queryset = Menu.objects.all()
 		dic = []
 		for itm in queryset:
 			for item in itm.platos.all():
-				dic.append({
-					
-					'id' : item.id ,
-					'nombre' : item.nombre ,
-					'tipo' : item.tipo,
+				if item.seccion == "ALMUERZO" :
+					dic.append({
+						
+						'id' : item.id ,
+						'nombre' : item.nombre ,
+						'tipo' : item.tipo,
+						'precio' : item.precio
 
-					})
+						})
 
 		return HttpResponse(json.dumps(dic))
+
+
+class desayunoView(View):
+	def get_context_data(self, **kwargs):
+	    context = super(desayunosView, self).get_context_data(**kwargs)
+	    return context
+	
+	def get(self , request):
+		queryset = Menu.objects.all()
+		dic = []
+		for itm in queryset:
+			for obj in itm.platos.all():
+				if obj.seccion == "DESAYUNO" :
+					dic.append({
+						'id' : obj.id ,
+						'nombre' : obj.nombre,
+						'tipo' : obj.tipo ,
+						'precio' : obj.precio
+
+
+						})
+		return HttpResponse (json.dumps(dic))
+
+
+
+
+
 
 
 class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
@@ -93,6 +122,22 @@ class pedidoApiView(APIView):
 
 		return HttpResponse(json.dumps({'success' : True }))
 
+
+
+class userRegisterApiView(APIView):
+
+	def post(self, request):
+
+		dta = json.loads(request.body)
+		data = dta['data']
+		user = User.objects.create_user(data['username'] ,
+				data['email'] , 
+				data['pass']  )
+		user.direccion = data['direccion']
+		user.save()
+
+		return HttpResponse(json.dumps({'success' : True }))
+		
 
 
 		

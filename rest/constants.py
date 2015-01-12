@@ -5,7 +5,18 @@ TYPE = (
 	('CARNE' , 'CARNE'),
 	('ENSALADA' , 'ENSALADA'),
 	('ARROZ' , 'ARROZ'),
-	('BEBIDA' , 'BEBIDA')
-	('ADICIONAL' , 'ADICIONAL' )
+	('BEBIDA' , 'BEBIDA') ,
+	('ADICIONAL' , 'ADICIONAL' ) ,
+	('PRINCPAL' , 'PRINCIPAL')
 
 )
+
+SECTION = (
+
+	('DESAYUNO' , 'DESAYUNO'),
+	('ALMUERZO' , 'ALMUERZO') ,
+	('ADICIONAL' , 'ADICIONAL')
+
+
+
+	)
