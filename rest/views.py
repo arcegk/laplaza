@@ -27,7 +27,7 @@ class almuerzoView(View):
 		dic = []
 		for itm in queryset:
 			for item in itm.platos.all():
-				if item.seccion == "ALMUERZO" :
+				if item.seccion == "ALMUERZO" or item.tipo == "BEBIDA":
 					dic.append({
 						
 						'id' : item.id ,
@@ -50,7 +50,7 @@ class desayunoView(View):
 		dic = []
 		for itm in queryset:
 			for obj in itm.platos.all():
-				if obj.seccion == "DESAYUNO" :
+				if obj.seccion == "DESAYUNO" or obj.tipo == "BEBIDA":
 					dic.append({
 						'id' : obj.id ,
 						'nombre' : obj.nombre,
@@ -63,7 +63,29 @@ class desayunoView(View):
 
 
 
+class bebidaView(View):
 
+	def get_context_data(self, **kwargs):
+	    context = super(babidaView, self).get_context_data(**kwargs)
+	    return context
+
+	def get(self , request):
+
+		queryset = Menu.objects.all()
+		dic = []
+		for itm in queryset:
+			for obj in itm.platos.all() :
+
+				if obj.tipo == "BEBIDA" :
+					dic.append({
+
+						'id' : obj.id ,
+						'nombre' : obj.nombre ,
+						'precio' : obj.precio 
+
+						
+					})
+		return HttpResponse(json.dumps(dic))
 
 
 
@@ -72,7 +94,7 @@ class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 	model = Menu
 	form_class = PanelForm
 	template_name = 'panel.html'
-	success_url = reverse_lazy('platos')
+	success_url = reverse_lazy('almuerzos')
 	login_url = '/login'
 	#lo comun de un updateview
 
