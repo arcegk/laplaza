@@ -10,6 +10,8 @@ class User(AbstractUser):
 
 	direccion = models.CharField(max_length=50 , verbose_name='dirección')
 	telefono = models.CharField(max_length=50  , blank=True , verbose_name='teléfono')
+	empresa = models.CharField(max_length=50 )
+	token = models.CharField(max_length=500 )
 
 	def __str__(self):
 		return self.username
@@ -21,7 +23,7 @@ class Plato(models.Model):
 	nombre = models.CharField(max_length=25)
 	precio = models.FloatField()
 	tipo = models.CharField(max_length=25 , choices = constants.TYPE)
-	seccion = models.CharField(max_length=25 , choices=constants.SECTION , default='')
+	seccion = models.CharField(max_length=25 , choices=constants.SECTION )
 	
 	def __str__(self):
 
@@ -34,8 +36,8 @@ class Pedido(models.Model):
 
 	user = models.ForeignKey(User)
 	orden = models.ManyToManyField(Plato)
-	direccion = models.CharField(max_length=25 , default='')
-	empresa = models.CharField(max_length=25 , default='')
+	direccion = models.CharField(max_length=25 )
+	empresa = models.CharField(max_length=25 )
 
 
 class Menu(models.Model):
