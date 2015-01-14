@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from rest.views import almuerzoView , menuUpdateView , pedidoApiView ,\
-     userInfo , desayunoView , userRegisterApiView , bebidaView
+from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
+    PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
+    BebidaView , ReporteListView 
 
 urlpatterns = patterns('',
     # Examples:
@@ -11,12 +12,16 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
    
     url(r'^almuerzos/' , 
-    	almuerzoView.as_view() ,
+    	AlmuerzoView.as_view() ,
     	name="almuerzos"),
 
-    url(r'^panel/' , 
-    	menuUpdateView.as_view() , 
-    	name='panel'),
+    url(r'^panel/desayunos' , 
+    	MenuDesUpdateView.as_view() , 
+    	name='panel-desayunos'),
+
+    url(r'^panel/almuerzos' ,
+        MenuAlmuerzoUpdateView.as_view() ,
+        name = 'panel-almuerzos') ,
 
     url(r'^auth', 
     	'rest_framework_jwt.views.obtain_jwt_token'),
@@ -26,23 +31,26 @@ urlpatterns = patterns('',
     	{'template_name' : 'login.html'} ),
 
     url(r'^pedido' ,
-    	pedidoApiView.as_view() , 
+    	PedidoApiView.as_view() , 
     	name='pedido-post' ) ,
 
     url(r'^info' ,
-    	userInfo.as_view() , 
+    	UserInfo.as_view() , 
     	name='info') ,
 
     url(r'^desayuno' ,
-        desayunoView.as_view(),
+        DesayunoView.as_view(),
         name = 'desayuno' ) ,
 
     url(r'^registrar' , 
-        userRegisterApiView.as_view() ,
+        UserRegisterApiView.as_view() ,
         name = 'register') ,
 
     url(r'^bebidas' ,
-        bebidaView.as_view(),
+        BebidaView.as_view(),
         name = 'register') ,
 
+    url(r'^reporte' ,
+        ReporteListView.as_view(),
+        name="reporte")
 )

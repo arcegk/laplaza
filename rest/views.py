@@ -4,19 +4,20 @@ from django.views.generic import ListView , View , UpdateView , FormView
 import json , ast
 from django.http import HttpResponse
 from .models import Plato , Menu , Pedido , User
-from .forms import PanelForm
+from .forms import PanelDesayunosForm , PanelAlmuerzosForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from datetime import date
 
 
 
 # Create your views here.
 
 
-class almuerzoView(View):
+class AlmuerzoView(View):
 
 	def get_context_data(self, **kwargs):
 	    context = super(platosListView, self).get_context_data(**kwargs)
@@ -40,7 +41,7 @@ class almuerzoView(View):
 		return HttpResponse(json.dumps(dic))
 
 
-class desayunoView(View):
+class DesayunoView(View):
 	def get_context_data(self, **kwargs):
 	    context = super(desayunosView, self).get_context_data(**kwargs)
 	    return context
@@ -63,7 +64,7 @@ class desayunoView(View):
 
 
 
-class bebidaView(View):
+class BebidaView(View):
 
 	def get_context_data(self, **kwargs):
 	    context = super(babidaView, self).get_context_data(**kwargs)
@@ -88,13 +89,12 @@ class bebidaView(View):
 		return HttpResponse(json.dumps(dic))
 
 
-
-class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
+class MenuDesUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 
 	model = Menu
-	form_class = PanelForm
+	form_class = PanelDesayunosForm
 	template_name = 'panel.html'
-	success_url = reverse_lazy('almuerzos')
+	success_url = reverse_lazy('desayunos')
 	login_url = '/login'
 	#lo comun de un updateview
 
@@ -102,8 +102,18 @@ class menuUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
 		return Menu.objects.get(pk=1)
 		#para no tener que pasar el pk por el id le asigno uno por defecto
 
+class MenuAlmuerzoUpdateView(LoginRequiredMixin , StaffuserRequiredMixin , UpdateView):
 
-class userInfo(APIView):
+	model = Menu
+	form_class = PanelAlmuerzosForm
+	template_name = 'panel.html'
+	success_url = reverse_lazy('almuerzos')
+	login_url = '/login'
+
+	def get_object(self):
+		return Menu.objects.get(pk=1)
+
+class UserInfo(APIView):
 
 	permission_classes = (IsAuthenticated,)
 	
@@ -120,7 +130,7 @@ class userInfo(APIView):
 
 	
 
-class pedidoApiView(APIView):
+class PedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
 	
@@ -146,7 +156,7 @@ class pedidoApiView(APIView):
 
 
 
-class userRegisterApiView(APIView):
+class UserRegisterApiView(APIView):
 
 	def post(self, request):
 
@@ -156,12 +166,17 @@ class userRegisterApiView(APIView):
 				data['email'] , 
 				data['pass']  )
 		user.direccion = data['direccion']
+		user.token = data['token']
 		user.save()
 
 		return HttpResponse(json.dumps({'success' : True }))
 		
 
+class ReporteListView(ListView):
 
+	today = date.today()
+	queryset = Pedido.objects.filter(fecha__contains=today).order_by('-fecha')
+	template_name = 'report.html'
 		
 
 

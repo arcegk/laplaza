@@ -24,13 +24,13 @@ class Plato(models.Model):
 	precio = models.FloatField()
 	tipo = models.CharField(max_length=25 , choices = constants.TYPE)
 	seccion = models.CharField(max_length=25 , choices=constants.SECTION )
+
 	
 	def __str__(self):
 
 		return ("%s - %s") %(self.nombre , self.tipo)
 
-	
-		
+
 
 class Pedido(models.Model):
 
@@ -38,6 +38,9 @@ class Pedido(models.Model):
 	orden = models.ManyToManyField(Plato)
 	direccion = models.CharField(max_length=25 )
 	empresa = models.CharField(max_length=25 )
+	fecha = models.DateTimeField(auto_now_add=True)
+	precio = models.FloatField()
+
 
 
 class Menu(models.Model):

@@ -1,0 +1,19 @@
+<html>
+
+<head>
+</head>
+
+<body>
+{%for pedido in object_list%}
+	
+	<p>{{pedido.user}} - {{pedido.direccion}}</p> 
+	{%for obj in pedido.orden.all %}
+		
+		<p>{{obj.nombre}}</p>
+	
+	{%endfor%}
+
+
+{%endfor%}
+</body>
+</html>
