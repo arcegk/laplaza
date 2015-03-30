@@ -25,7 +25,7 @@ class AlmuerzoView(View):
 
 	def get(self, request):
 		queryset = Menu.objects.all()
-		dic = []
+		dic = {}
 		for itm in queryset:
 			for item in itm.platos.all():
 				if item.seccion == "ALMUERZO" or item.tipo == "BEBIDA":
@@ -73,19 +73,15 @@ class BebidaView(View):
 	def get(self , request):
 
 		queryset = Menu.objects.all()
-		dic = []
+		dic = {}
 		for itm in queryset:
 			for obj in itm.platos.all() :
 
 				if obj.tipo == "BEBIDA" :
-					dic.append({
-
-						'id' : obj.id ,
-						'nombre' : obj.nombre ,
-						'precio' : obj.precio 
-
-						
-					})
+					dic['id'] = obj.id
+					dic['nombre'] = obj.nombre
+					dic['precio'] = obj.precio
+						 
 		return HttpResponse(json.dumps(dic))
 
 
