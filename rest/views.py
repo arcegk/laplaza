@@ -25,7 +25,7 @@ class AlmuerzoView(View):
 
 	def get(self, request):
 		queryset = Menu.objects.all()
-		dic = {}
+		dic = []
 		for itm in queryset:
 			for item in itm.platos.all():
 				if item.seccion == "ALMUERZO" or item.tipo == "BEBIDA":
@@ -38,7 +38,9 @@ class AlmuerzoView(View):
 
 						})
 
-		return HttpResponse(json.dumps(dic))
+		jsn = {'data' : dic }
+
+		return HttpResponse(json.dumps(jsn))
 
 
 class DesayunoView(View):
@@ -73,16 +75,23 @@ class BebidaView(View):
 	def get(self , request):
 
 		queryset = Menu.objects.all()
-		dic = {}
+		dic = []
 		for itm in queryset:
 			for obj in itm.platos.all() :
 
 				if obj.tipo == "BEBIDA" :
-					dic['id'] = obj.id
-					dic['nombre'] = obj.nombre
-					dic['precio'] = obj.precio
-						 
-		return HttpResponse(json.dumps(dic))
+					dic.append({
+
+						'id' : obj.id ,
+						'nombre' : obj.nombre ,
+						'precio' : obj.precio 
+
+						
+					})
+
+		jsn = {'data' : dic }
+
+		return HttpResponse(json.dumps(jsn))
 
 
 class MenuDesUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView):
