@@ -7,7 +7,7 @@ TYPE = (
 	('ARROZ' , 'ARROZ'),
 	('BEBIDA' , 'BEBIDA') ,
 	('ADICIONAL' , 'ADICIONAL' ) ,
-	('PRINCPAL' , 'PRINCIPAL')
+	('PRINCIPAL' , 'PRINCIPAL')
 
 )
 

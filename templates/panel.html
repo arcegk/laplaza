@@ -1,7 +1,18 @@
 <html>
 <form method= 'POST' action = ''> {%csrf_token%}
 
-				{{ form }}
+<div class="sopa">
+<h2>Sopas</h2>
+</div>
+<div class="principio"></div>
+
+		{%for obj in form.platos%}
+
+			{% if 'PRINCIPAL' in obj.choice_label %}
+				{{obj}}
+			{%endif%}
+				
+		{%endfor%}
 				<button type="submit"> Ingresar
 				</button>
 			</form>
