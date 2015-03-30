@@ -1,19 +1,90 @@
 <html>
-<form method= 'POST' action = ''> {%csrf_token%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
 
-<div class="sopa">
-<h2>Sopas</h2>
-</div>
-<div class="principio"></div>
+$( document ).ready(function() {
+	var pr = ""
+	var soap = ""
+	var meat = 	""
+	var salad = "" 
+	var rice = ""
+	var drink = ""
 
-		{%for obj in form.platos%}
+	{%for obj in form.platos%}
 
-			{% if 'PRINCIPAL' in obj.choice_label %}
-				{{obj}}
+			{%if 'PRINCIPIO' in obj.choice_label %}
+				pr += "<div>" + '{{obj}}' + "</div>";
+				$(".principio").html(pr);
+
+			{% elif 'SOPA' in obj.choice_label %}
+				soap += "<div>" + '{{obj}}' + "</div>";
+				$(".sopa").html(soap);
+			
+			{% elif 'CARNE' in obj.choice_label %}
+				meat += "<div>" + '{{obj}}' + "</div>";
+				$(".carne").html(meat);
+
+			{% elif 'ARROZ' in obj.choice_label %}
+				rice += "<div>" + '{{obj}}' + "</div>";
+				$(".arroz").html(rice);
+
+			{% elif 'ENSALADA' in obj.choice_label %}
+				salad += "<div>" + '{{obj}}' + "</div>";
+				$(".ensalada").html(salad);
+			
+			{% elif 'BEBIDA' in obj.choice_label %}
+				salad += "<div>" + '{{obj}}' + "</div>";
+				$(".bebida").html(salad);
 			{%endif%}
-				
-		{%endfor%}
-				<button type="submit"> Ingresar
-				</button>
-			</form>
+			
+	{%endfor%}
+	
+	
+
+});
+
+</script>				
+	<body>
+		<form method= 'POST' action = ''> {%csrf_token%}
+
+
+			<div>
+				<h2>Sopas:</h2>
+				<div class="sopa"></div>
+			</div>
+
+
+			<div>
+				<h2>Principio:</h2>
+				<div class="principio"></div>
+			</div>
+
+			<div>
+				<h2>Carne:</h2>
+				<div class="carne"></div>
+			</div>
+
+			<div>
+				<h2>Ensalada:</h2>
+				<div class="ensalada"></div>
+			</div>
+
+
+			<div>
+				<h2>Arroz:</h2>
+				<div class="arroz"></div>
+			</div>
+
+			<div>
+				<h2>Bebidas:</h2>
+				<div class="bebida"></div>
+			</div>
+
+
+
+			<button type="submit">Ingresar</button>
+			
+		</form>
+
+	</body>
 </html>

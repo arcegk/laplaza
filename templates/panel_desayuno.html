@@ -1,0 +1,51 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+$( document ).ready(function() {
+	var pr = ""
+	var drink = ""
+
+
+	{%for obj in form.platos%}
+
+			{%if 'PRINCIPAL' in obj.choice_label %}
+				pr += "<div>" + '{{obj}}' + "</div>";
+				$(".principal").html(pr);
+
+			{% elif 'BEBIDA' in obj.choice_label %}
+				drink += "<div>" + '{{obj}}' + "</div>";
+				$(".bebida").html(drink);
+
+			{%endif%}
+					
+			
+	{%endfor%}
+	
+	
+
+});
+
+</script>				
+	<body>
+		<form method= 'POST' action = ''> {%csrf_token%}
+
+
+			<div>
+				<h2>Principal:</h2>
+				<div class="principal"></div>
+			</div>
+
+
+			<div>
+				<h2>Bebida</h2>
+				<div class="bebida"></div>
+			</div>
+
+
+			<button type="submit">Ingresar</button>
+			
+		</form>
+		
+	</body>
+</html>

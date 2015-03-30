@@ -26,7 +26,9 @@ class AlmuerzoView(View):
 	def get(self, request):
 		queryset = Menu.objects.all()
 		dic = []
+
 		for itm in queryset:
+			print itm.platos.all()
 			for item in itm.platos.all():
 				if item.seccion == "ALMUERZO" or item.tipo == "BEBIDA":
 					dic.append({
@@ -52,8 +54,9 @@ class DesayunoView(View):
 		queryset = Menu.objects.all()
 		dic = []
 		for itm in queryset:
-			for obj in itm.platos.all():
-				if obj.seccion == "DESAYUNO" or obj.tipo == "BEBIDA":
+
+			for obj in itm.platos.all().exclude(seccion="ALMUERZO"):
+					
 					dic.append({
 						'id' : obj.id ,
 						'nombre' : obj.nombre,
@@ -99,7 +102,7 @@ class MenuDesUpdateView(LoginRequiredMixin , StaffuserRequiredMixin, UpdateView)
 
 	model = Menu
 	form_class = PanelDesayunosForm
-	template_name = 'panel.html'
+	template_name = 'panel_desayuno.html'
 	success_url = reverse_lazy('desayunos')
 	login_url = '/login'
 	#lo comun de un updateview

@@ -40,7 +40,7 @@ urlpatterns = patterns('',
 
     url(r'^desayuno' ,
         DesayunoView.as_view(),
-        name = 'desayuno' ) ,
+        name = 'desayunos' ) ,
 
     url(r'^registrar' , 
         UserRegisterApiView.as_view() ,
