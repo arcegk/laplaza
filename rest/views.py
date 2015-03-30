@@ -62,7 +62,8 @@ class DesayunoView(View):
 
 
 						})
-		return HttpResponse (json.dumps(dic))
+		jsn = {'data' : dic }
+		return HttpResponse (json.dumps(jsn))
 
 
 
