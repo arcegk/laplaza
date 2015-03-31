@@ -2,15 +2,17 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
     PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
-    BebidaView , ReporteListView 
+    BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'restaurante.views.home', name='home'),
+    
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
    
+    url(r'^$', HomeView.as_view() , name='home'),
+
     url(r'^almuerzos/' , 
     	AlmuerzoView.as_view() ,
     	name="almuerzos"),
@@ -52,5 +54,14 @@ urlpatterns = patterns('',
 
     url(r'^reporte' ,
         ReporteListView.as_view(),
-        name="reporte")
+        name="reporte"),
+
+    url(r'^menu$' , 
+        MenuAlmuerzoDetailView.as_view() ,
+        name="menu-dia") ,
+
+    url(r'^menu-desayuno$' , 
+        MenuDesayunoDetailView.as_view() ,
+        name="menu-desayuno") ,
+
 )

@@ -71,10 +71,10 @@ WSGI_APPLICATION = 'restaurante.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'df4a1rbd1htkq8' ,
-        'USER': 'qtscsbrzuvhwbt',
-        'PASSWORD' : 'GJ0IkGzOB2aDfgepFK0hgHK4P2',
-        'HOST' : 'ec2-54-83-201-96.compute-1.amazonaws.com',
+        'NAME': 'd72nl5bg9jhrgq' ,
+        'USER': 'sztbbeubpjaoln',
+        'PASSWORD' : 'QcWenPRSBylu_Ce1H0YmrWWxeU',
+        'HOST' : 'ec2-54-163-226-9.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }

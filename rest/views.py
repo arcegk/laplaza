@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
-from django.views.generic import ListView , View , UpdateView , FormView
+from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
 import json , ast
 from django.http import HttpResponse
 from .models import Plato , Menu , Pedido , User
@@ -24,19 +24,16 @@ class AlmuerzoView(View):
 	    return context
 
 	def get(self, request):
-		queryset = Menu.objects.all()
+		queryset = Menu.objects.get(pk=2)
 		dic = []
-
-		for itm in queryset:
-			print itm.platos.all()
-			for item in itm.platos.all():
-				if item.seccion == "ALMUERZO" or item.tipo == "BEBIDA":
-					dic.append({
+		
+		for item in queryset.platos.all():
+			dic.append({
 						
-						'id' : item.id ,
-						'nombre' : item.nombre ,
-						'tipo' : item.tipo,
-						'precio' : item.precio
+			'id' : item.id ,
+			'nombre' : item.nombre ,
+			'tipo' : item.tipo,
+			'precio' : item.precio
 
 						})
 
@@ -51,20 +48,17 @@ class DesayunoView(View):
 	    return context
 	
 	def get(self , request):
-		queryset = Menu.objects.all()
+		queryset = Menu.objects.get(pk=1)
 		dic = []
-		for itm in queryset:
+		for obj in queryset.platos.all():			
+			dic.append({
+			'id' : obj.id ,
+			'nombre' : obj.nombre,
+			'tipo' : obj.tipo ,
+			'precio' : obj.precio
 
-			for obj in itm.platos.all().exclude(seccion="ALMUERZO"):
-					
-					dic.append({
-						'id' : obj.id ,
-						'nombre' : obj.nombre,
-						'tipo' : obj.tipo ,
-						'precio' : obj.precio
-
-
-						})
+					})
+	
 		jsn = {'data' : dic }
 		return HttpResponse (json.dumps(jsn))
 
@@ -120,7 +114,7 @@ class MenuAlmuerzoUpdateView(LoginRequiredMixin , StaffuserRequiredMixin , Updat
 	login_url = '/login'
 
 	def get_object(self):
-		return Menu.objects.get(pk=1)
+		return Menu.objects.get(pk=2)
 
 class UserInfo(APIView):
 
@@ -186,7 +180,25 @@ class ReporteListView(ListView):
 	today = date.today()
 	queryset = Pedido.objects.filter(fecha__contains=today).order_by('-fecha')
 	template_name = 'report.html'
+
+
+class HomeView(TemplateView):
+
+	template_name = 'home.html'
+
+class MenuAlmuerzoDetailView(DetailView):
+
+	template_name = 'menu-almuerzo.html'
+
+	def get_object(self):
+		return Menu.objects.get(pk=2)
 		
 
+class MenuDesayunoDetailView(DetailView):
+
+	template_name = 'menu-desayuno.html'
+
+	def get_object(self):
+		return Menu.objects.get(pk=1)
 
 

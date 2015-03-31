@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<HEAD>
+<title>Menú deayunos - Restaurante Plaza</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+$( document ).ready(function() {
+	var pr = ""
+	var drink = ""
+
+
+	{%for obj in object.platos.all%}
+
+			{%if obj.tipo == 'PRINCIPAL' %}
+				pr += "<div>" + '{{obj}}' + "</div>";
+				$(".principal").html(pr);
+
+			{% elif obj.tipo == 'BEBIDA' %}
+				drink += "<div>" + '{{obj}}' + "</div>";
+				$(".bebida").html(drink);
+
+			{%endif%}
+					
+			
+	{%endfor%}
+	
+	
+
+});
+
+</script>				
+</HEAD>
+	<body>
+		<form method= 'POST' action = ''> {%csrf_token%}
+
+
+			<div>
+				<h2>Principal:</h2>
+				<div class="principal"></div>
+			</div>
+
+
+			<div>
+				<h2>Bebida</h2>
+				<div class="bebida"></div>
+			</div>
+
+
+			<button type="submit">Ingresar</button>
+			
+		</form>
+		
+	</body>
+</html>

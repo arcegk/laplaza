@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menú - Restaurante Plaza</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+$( document ).ready(function() {
+	var pr = ""
+	var soap = ""
+	var meat = 	""
+	var salad = "" 
+	var rice = ""
+	var drink = ""
+
+	{%for obj in object.platos.all%}
+
+			{%if obj.tipo == 'PRINCIPIO' %}
+				pr += "<div>" + '{{obj}}' + "</div>";
+				$(".principio").html(pr);
+
+			{% elif obj.tipo == 'SOPA' %}
+				soap += "<div>" + '{{obj}}' + "</div>";
+				$(".sopa").html(soap);
+			
+			{% elif obj.tipo == 'CARNE' %}
+				meat += "<div>" + '{{obj}}' + "</div>";
+				$(".carne").html(meat);
+
+			{% elif obj.tipo == 'ARROZ' %}
+				rice += "<div>" + '{{obj}}' + "</div>";
+				$(".arroz").html(rice);
+
+			{% elif obj.tipo == 'ENSALADA' %}
+				salad += "<div>" + '{{obj}}' + "</div>";
+				$(".ensalada").html(salad);
+			
+			{% elif obj.tipo == 'BEBIDA' %}
+				drink += "<div>" + '{{obj}}' + "</div>";
+				$(".bebida").html(drink);
+			{%endif%}
+			
+	{%endfor%}
+	
+	
+
+});
+
+</script>				
+</head>
+
+<body>
+	<div>
+		<div><h2>Éste es menú de desayunos:</h2></div>
+			<div>
+				<h2>Sopas:</h2>
+				<div class="sopa"></div>
+			</div>
+
+
+			<div>
+				<h2>Principio:</h2>
+				<div class="principio"></div>
+			</div>
+
+			<div>
+				<h2>Carne:</h2>
+				<div class="carne"></div>
+			</div>
+
+			<div>
+				<h2>Ensalada:</h2>
+				<div class="ensalada"></div>
+			</div>
+
+
+			<div>
+				<h2>Arroz:</h2>
+				<div class="arroz"></div>
+			</div>
+
+			<div>
+				<h2>Bebidas:</h2>
+				<div class="bebida"></div>
+			</div>
+	</div>
+</body>
+</html>

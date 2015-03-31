@@ -8,8 +8,7 @@ class PanelDesayunosForm(forms.ModelForm):
 		super(PanelDesayunosForm, self).__init__(*args, **kwargs)
 		#le doy el widget de multiple seleccionador y le paso el queryset
 		self.fields['platos'].widget= forms.CheckboxSelectMultiple()
-		self.fields['platos'].queryset= Plato.objects.filter(seccion='DESAYUNO').order_by('tipo') |\
-										Plato.objects.filter(tipo='BEBIDA') 
+		self.fields['platos'].queryset= Plato.objects.all()
 		self.fields['platos'].help_text=""
 		
 		# | se usa para "sumar" dos querysets
@@ -25,8 +24,7 @@ class PanelAlmuerzosForm(forms.ModelForm):
 		super(PanelAlmuerzosForm, self).__init__(*args , **kwargs)
 
 		self.fields['platos'].widget=forms.CheckboxSelectMultiple()
-		self.fields['platos'].queryset = Plato.objects.filter(seccion='ALMUERZO').order_by('tipo') |\
-										 Plato.objects.filter(tipo='BEBIDA')
+		self.fields['platos'].queryset = Plato.objects.all()
 		self.fields['platos'].help_text=''
 
 	class Meta:
