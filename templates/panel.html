@@ -33,8 +33,8 @@ $( document ).ready(function() {
 				$(".ensalada").html(salad);
 			
 			{% elif 'BEBIDA' in obj.choice_label %}
-				salad += "<div>" + '{{obj}}' + "</div>";
-				$(".bebida").html(salad);
+				drink += "<div>" + '{{obj}}' + "</div>";
+				$(".bebida").html(drink);
 			{%endif%}
 			
 	{%endfor%}
