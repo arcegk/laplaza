@@ -1,5 +1,8 @@
 <html>
+{% load static from staticfiles %} 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 <script type="text/javascript">
 
 $( document ).ready(function() {
@@ -45,37 +48,38 @@ $( document ).ready(function() {
 
 </script>				
 	<body>
+	<div class="container">
 		<form method= 'POST' action = ''> {%csrf_token%}
 
-
-			<div>
+		<div >
+			<div class="col-md-2">
 				<h2>Sopas:</h2>
 				<div class="sopa"></div>
 			</div>
+		</div>
 
-
-			<div>
+			<div class="col-md-2">
 				<h2>Principio:</h2>
 				<div class="principio"></div>
 			</div>
 
-			<div>
+			<div  class="col-md-2">
 				<h2>Carne:</h2>
 				<div class="carne"></div>
 			</div>
 
-			<div>
+			<div class="col-md-2">
 				<h2>Ensalada:</h2>
 				<div class="ensalada"></div>
 			</div>
 
 
-			<div>
+			<div  class="col-md-2">
 				<h2>Arroz:</h2>
 				<div class="arroz"></div>
 			</div>
 
-			<div>
+			<div class="col-md-2">
 				<h2>Bebidas:</h2>
 				<div class="bebida"></div>
 			</div>
@@ -85,6 +89,6 @@ $( document ).ready(function() {
 			<button type="submit">Ingresar</button>
 			
 		</form>
-
+	</div>
 	</body>
 </html>
