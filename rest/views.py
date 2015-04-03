@@ -93,7 +93,7 @@ class AlmuerzoView(View):
 				})
 
 			elif item.tipo == "ARROZ":
-				acom.append({
+				arroz.append({
 							
 				'id' : item.id ,
 				'nombre' : item.nombre ,
