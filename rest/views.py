@@ -221,6 +221,8 @@ class PedidoApiView(APIView):
 		obj.user = User.objects.get(pk=data['user'])
 		obj.direccion = data['direccion']
 		ob.empresa = data['empresa']
+		obj.precio = data['precio']
+		obj.telefono = data['telefono']
 		obj.save()
 
 		for itm in data['platos']:

@@ -36,6 +36,7 @@ class Pedido(models.Model):
 
 	user = models.ForeignKey(User)
 	orden = models.ManyToManyField(Plato)
+	telefono = models.CharField(max_length=10)
 	direccion = models.CharField(max_length=25 )
 	empresa = models.CharField(max_length=25 )
 	fecha = models.DateTimeField(auto_now_add=True)
