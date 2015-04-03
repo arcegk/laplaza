@@ -26,16 +26,77 @@ class AlmuerzoView(View):
 	def get(self, request):
 		queryset = Menu.objects.get(pk=2)
 		dic = []
+		sopa = []
+		prin = []
+		carne = []
+		ensa = []
+		bebida = []
+		acom = []
+
 		
 		for item in queryset.platos.all():
-			dic.append({
-						
-			'id' : item.id ,
-			'nombre' : item.nombre ,
-			'tipo' : item.tipo,
-			'precio' : item.precio
+			if item.tipo == "SOPA":
+				sopa.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio
 
-						})
+							})
+			elif item.tipo == "PRINCIPIO":
+				prin.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio
+
+							})
+			elif item.tipo == "CARNE":
+				carne.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio
+
+							})
+
+			elif item.tipo == "ENSALADA":
+				ensa.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio
+
+							})
+			elif item.tipo == "BEBIDA":
+				bebida.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio
+
+							})
+
+			elif item.tipo == "ACOMPANANTE":
+				acom.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio
+
+							})
+		dic.append({'SOPA' : sopa})
+		dic.append({'CARNE' : carne})
+		dic.append({'BEBIDA' : bebida})
+		dic.append({'ENSALADA' : ensa})
+		dic.append({'PRINCIPIO' : prin})
+		dic.append({'ACOMPANANTE' : acom})
 
 		jsn = {'data' : dic }
 
