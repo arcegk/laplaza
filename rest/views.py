@@ -205,7 +205,7 @@ class UserInfo(APIView):
 
 	
 
-class PedidoApiView(APIView):
+class PedidoApiView(APIView, CsrfExemptMixin ):
 
 	permission_classes = (IsAuthenticated, )
 	
