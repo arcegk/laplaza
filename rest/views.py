@@ -10,6 +10,7 @@ from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemp
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 
 
@@ -212,7 +213,8 @@ class PedidoApiView(APIView, CsrfExemptMixin ):
 	def get_context_data(self, **kwargs):
 	    context = super(pedidoApiView, self).get_context_data(**kwargs)
 	    return context
-
+	    
+	@csrf_exempt
 	def post(self, request):
 
 		dta = json.loads(request.body)
