@@ -234,7 +234,7 @@ class PedidoApiView(APIView):
 		obj.empresa = data['empresa']
 		obj.telefono = data['telefono']
 		obj.precio = data['precio']
-		
+		obj.observaciones = data['observaciones']
 		obj.estado = "PENDIENTE"
 		obj.save()
 
