@@ -41,6 +41,8 @@ class Pedido(models.Model):
 	empresa = models.CharField(max_length=25 )
 	fecha = models.DateTimeField(auto_now_add=True)
 	precio = models.FloatField()
+	observaciones = models.TextField()
+	nombre = models.CharField(max_length=25)
 
 
 

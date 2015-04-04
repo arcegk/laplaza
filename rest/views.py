@@ -224,6 +224,12 @@ class PedidoApiView(APIView):
 		obj = Pedido()
 		us = User.objects.get(pk=data['user'])
 		obj.user = us
+		if us.name == "generic":
+			obj.nombre = data['nombre']
+
+		else:
+			obj.nombre = us.name 
+
 		obj.direccion = data['direccion']
 		obj.empresa = data['empresa']
 		obj.precio = data['precio']
@@ -257,7 +263,7 @@ class UserRegisterApiView(APIView):
 class ReporteListView(ListView):
 
 	today = date.today()
-	queryset = Pedido.objects.filter(fecha__contains=today).order_by('-fecha')
+	queryset = Pedido.objects.all().order_by('-fecha')
 	template_name = 'report.html'
 
 

@@ -1,19 +1,45 @@
 <html>
-
+{% load static from staticfiles %}
 <head>
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+<script type="text/javascript">
+	$("input").on('click' , function(){
+		
+		
+
+	}) 
+
+
+</script>
 </head>
 
 <body>
-{%for pedido in object_list%}
-	
-	<p>{{pedido.user}} - {{pedido.direccion}}</p> 
-	{%for obj in pedido.orden.all %}
-		
-		<p>{{obj.nombre}}</p>
-	
-	{%endfor%}
+<div class="container">
+	<div class="page-header"><h1>Pedidos:</h1></div>
+	<div class ="row">
+		{%for pedido in object_list%}
+			<div class="well bg-success">
+				<div class="inf">
+				<strong>Nombre : {{pedido.nombre}}</strong><br>
+				<strong>Dirección : {{pedido.direccion}}</strong><br> 
+				<strong>Empresa : {{pedido.empresa}}</strong> 
+				</div>
+				<div class="order">
+					{%for obj in pedido.orden.all %}
+						<p>{{obj.nombre}}</p>
+					{%endfor%}
+				</div>
 
 
-{%endfor%}
+				<div><p class="bg-success">{{pedido.precio}}</p></div>
+
+				<div> <input type="Checkbox" value="{{pedido.id}}">Entregado</div>
+			</div>
+		{%endfor%}
+
+	</div>
+</div>
 </body>
 </html>
