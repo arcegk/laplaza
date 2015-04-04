@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator	
 from datetime import date
 
 
@@ -206,23 +207,25 @@ class UserInfo(APIView):
 
 	
 
-class PedidoApiView(APIView, CsrfExemptMixin ):
+class PedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
+
 	
 	def get_context_data(self, **kwargs):
 	    context = super(pedidoApiView, self).get_context_data(**kwargs)
 	    return context
-	    
-	@csrf_exempt
-	def post(self, request):
 
-		dta = json.loads(request.body)
-		data = dta['data']
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		print dta
+		data = dta['data'] 
 		obj = Pedido()
-		obj.user = User.objects.get(pk=data['user'])
+		us = User.objects.get(pk=data['user'])
+		obj.user = us
 		obj.direccion = data['direccion']
-		ob.empresa = data['empresa']
+		obj.empresa = data['empresa']
 		obj.precio = data['precio']
 		obj.telefono = data['telefono']
 		obj.save()
@@ -238,8 +241,8 @@ class PedidoApiView(APIView, CsrfExemptMixin ):
 class UserRegisterApiView(APIView):
 
 	def post(self, request):
-
-		dta = json.loads(request.body)
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
 		data = dta['data']
 		user = User.objects.create_user(data['username'] ,
 				data['email'] , 
