@@ -228,7 +228,7 @@ class PedidoApiView(APIView):
 			obj.nombre = data['nombre']
 			
 		else:
-			obj.nombre = us.name 
+			obj.nombre = us.nombre 
 		
 		obj.direccion = data['direccion']
 		obj.empresa = data['empresa']
