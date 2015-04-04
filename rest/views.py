@@ -226,21 +226,23 @@ class PedidoApiView(APIView):
 		obj.user = us
 		if us.name == "generic":
 			obj.nombre = data['nombre']
-
+			
 		else:
 			obj.nombre = us.name 
-
+		
 		obj.direccion = data['direccion']
 		obj.empresa = data['empresa']
-		obj.precio = data['precio']
 		obj.telefono = data['telefono']
+		obj.precio = data['precio']
+		
+		obj.estado = "PENDIENTE"
 		obj.save()
 
 		for itm in data['platos']:
 			plt = Plato.objects.get(pk=itm)
 			obj.orden.add(plt)
 
-		return HttpResponse(json.dumps({'success' : True }))
+		return HttpResponse(json.dumps({'id' : obj.id }))
 
 
 
@@ -253,7 +255,7 @@ class UserRegisterApiView(APIView):
 		user = User.objects.create_user(data['username'] ,
 				data['email'] , 
 				data['pass']  )
-		user.direccion = data['direccion']
+		user.empresa = data['empresa']
 		user.token = data['token']
 		user.save()
 
@@ -263,7 +265,7 @@ class UserRegisterApiView(APIView):
 class ReporteListView(ListView):
 
 	today = date.today()
-	queryset = Pedido.objects.all().order_by('-fecha')
+	queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('-fecha')
 	template_name = 'report.html'
 
 
@@ -285,5 +287,15 @@ class MenuDesayunoDetailView(DetailView):
 
 	def get_object(self):
 		return Menu.objects.get(pk=1)
+
+class AjaxStatusView(View):
+	
+	def get(self, request):
+		ide = request.GET['id']
+		status = request.GET['status'].upper()
+		obj = Pedido.objects.get(pk=ide)
+		obj.estado = status
+		obj.save()
+		return HttpResponse(json.dumps({'success' : True}) ,content_type='application/json')
 
 

@@ -3,28 +3,26 @@
 <head>
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css'%}">
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-<script type="text/javascript">
-	$("input").on('click' , function(){
-		
-		
-
-	}) 
-
-
-</script>
 </head>
 
 <body>
 <div class="container">
 	<div class="page-header"><h1>Pedidos:</h1></div>
 	<div class ="row">
+
 		{%for pedido in object_list%}
-			<div class="well bg-success">
+			{% if pedido.estado == "ENVIADO" %}
+				<div class="well bg-success" style="background:#5bc0de ;  opacity: 0.8"id="{{pedido.id}}">
+			{% else %}
+				<div class="well bg-success" id="{{pedido.id}}">
+			{% endif %}
 				<div class="inf">
 				<strong>Nombre : {{pedido.nombre}}</strong><br>
 				<strong>Dirección : {{pedido.direccion}}</strong><br> 
-				<strong>Empresa : {{pedido.empresa}}</strong> 
+				<strong>Empresa : {{pedido.empresa}}</strong><br>
+				<strong>Observaciones: {{pedido.observaciones}}</strong>
 				</div>
 				<div class="order">
 					{%for obj in pedido.orden.all %}
@@ -32,14 +30,55 @@
 					{%endfor%}
 				</div>
 
-
+				{% if pedido.estado == "ENVIADO" %}
+				<div><p class="bg-primary">{{pedido.precio}}</p></div>
+				{% else %}
 				<div><p class="bg-success">{{pedido.precio}}</p></div>
-
-				<div> <input type="Checkbox" value="{{pedido.id}}">Entregado</div>
+				{% endif %}
+				<div>
+				{% if pedido.estado != "ENVIADO"%}
+					<div class="col-md-2"> <input type="Checkbox" id="{{pedido.id}}" value="Enviado">Enviado</div>
+				{% else %}
+					<div class="col-md-2"> <input type="Checkbox" id="{{pedido.id}}" value="Entregado">Entregado</div>
+				{% endif %}
+				</div>
 			</div>
 		{%endfor%}
 
 	</div>
 </div>
+	<script type="text/javascript">
+		$( "input" ).on( "click", function() {
+			var id = $(this).attr("id");
+			var status = $("input:checked").val();
+			console.log(status);
+			if (status=="Entregado"){
+				$("#" + id).hide();
+			}
+	  		
+	  	$.ajax({
+
+	  		data : {'id' : id , 'status' : status },
+	  		url : "/ajax-status",
+	  		type : 'get' ,
+	  		success : function(data){
+
+	  				console.log(data.success);
+	  				location.reload();
+	  		}
+
+	  		});
+
+
+	});
+
+	</script>
+
+	<script type="text/javascript">
+
+
+
+	</script>
+
 </body>
 </html>

@@ -7,9 +7,6 @@ from . import constants
 
 class User(AbstractUser):
 
-
-	direccion = models.CharField(max_length=50 , verbose_name='dirección')
-	telefono = models.CharField(max_length=50  , blank=True , verbose_name='teléfono')
 	empresa = models.CharField(max_length=50 )
 	token = models.CharField(max_length=500 )
 
@@ -41,8 +38,9 @@ class Pedido(models.Model):
 	empresa = models.CharField(max_length=25 )
 	fecha = models.DateTimeField(auto_now_add=True)
 	precio = models.FloatField()
-	observaciones = models.TextField()
+	observaciones = models.TextField(blank=True)
 	nombre = models.CharField(max_length=25)
+	estado = models.CharField(max_length=25)
 
 
 

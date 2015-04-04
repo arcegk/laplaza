@@ -2,7 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
     PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
-    BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView
+    BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
+    AjaxStatusView
 
 urlpatterns = patterns('',
     # Examples:
@@ -63,5 +64,7 @@ urlpatterns = patterns('',
     url(r'^menu-desayuno$' , 
         MenuDesayunoDetailView.as_view() ,
         name="menu-desayuno") ,
+
+    url(r'^ajax-status' , AjaxStatusView.as_view() , name="ajax-status"),
 
 )
