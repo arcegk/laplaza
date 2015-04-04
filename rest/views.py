@@ -224,11 +224,11 @@ class PedidoApiView(APIView):
 		obj = Pedido()
 		us = User.objects.get(pk=data['user'])
 		obj.user = us
-		if us.name == "generic":
+		if us.first_name == "generic":
 			obj.nombre = data['nombre']
 			
 		else:
-			obj.nombre = us.nombre 
+			obj.nombre = us.first_name
 		
 		obj.direccion = data['direccion']
 		obj.empresa = data['empresa']
