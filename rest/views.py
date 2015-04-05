@@ -271,7 +271,7 @@ class ReporteListView(ListView):
 
 class HomeView(TemplateView):
 
-	template_name = 'home.html'
+	template_name = 'landing.html'
 
 class MenuAlmuerzoDetailView(DetailView):
 
