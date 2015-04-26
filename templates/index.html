@@ -1,0 +1,74 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Restaurante Plaza</title>
+	<meta charset="utf-8">
+	<meta name="author" content="sikkuinova">
+	<meta name="description" content="Restaurante plaza"/>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'resto/css/reset.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'resto/css/main.css'%}">
+
+    <script type="text/javascript" src="{% static 'resto/js/jquery.css'}"></script>
+    <script type="text/javascript" src="{% static 'resto/js/carouFredSel.js'%}"></script>
+    <script type="text/javascript" src="{% static 'resto/js/easing.js'%}"></script>
+    <script type="text/javascript" src="{% static 'resto/js/main.js'%}"></script>
+</head>
+<body>
+
+	<!--  start header  -->
+	<header>
+		<div class="wrapper">
+			<div class="logo">
+				<a href=""><img src="" alt="Logo" title=""/></a>
+			</div>
+
+			<nav>
+				<ul>
+					
+					<li><a href="" class="active">Home</a></li>
+					<li><a href="">Menu</a></li>
+					<li><a href="">Haz tu pedido</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header><!--  end header  -->
+
+
+	<!--  start hero  -->
+	<section class="hero">
+		<div class="caption">
+			<h3>Restaurante Plaza</h3>
+			<h4>
+				<span class="rsep"></span>
+				El mejor restaurante del centro de Cali
+				<span class="lsep"></span>
+			</h4>
+			
+		</div>
+	</section><!--  end hero  -->
+
+	<!--  start footer  -->
+	<footer>
+		<div class="wrapper">
+			<!-- adresse1  -->
+			<section class="adress">
+				<p>Centro</p> 
+				<p class="location">Cra 6 #10 - 33<br/></p>
+				<p class="phone">23124234</p>
+			</section>
+
+			</section>
+
+			<!--  footer copyrights  -->
+			<section class="copyrights">
+				<img src="" class="footer_logo" alt="" title="">
+				<p>© All Rights Reserved 2015.</p>
+				<p>Desing By<a href="http://sikuinnova.com">Sikuinnova</a></p>	
+			</section>
+		</div>
+	</footer><!--  end footer  -->
+
+</body>
+</html>

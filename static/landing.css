@@ -32,6 +32,13 @@ font: helvetica;
 
 }
 
+.btn-primary{
+	position: fixed;
+	top: 250px;
+	padding-left: 100px;
+
+}
+
 .content{
 
 height: 650px;
@@ -44,7 +51,7 @@ margin: inherit;
 .content:before {
     content: '';
 		position: absolute;
-		width: 100%;
+		width: 50%;
 		height: 650px;
 		background-image: linear-gradient(to bottom right,#828282,#000000);
 		opacity: .6; 
