@@ -104,12 +104,12 @@ class AlmuerzoView(View):
 				})
 
 		dic.append({'SOPA' : sopa})
-		dic.append({'CARNE' : carne})
-		dic.append({'BEBIDA' : bebida})
-		dic.append({'ENSALADA' : ensa})
 		dic.append({'PRINCIPIO' : prin})
-		dic.append({'ACOMPANANTE' : acom})
 		dic.append({'ARROZ' : arroz})
+		dic.append({'ENSALADA' : ensa})
+		dic.append({'CARNE' : carne})
+		dic.append({'ACOMPANANTE' : acom})
+		dic.append({'BEBIDA' : bebida})
 
 		jsn = {'data' : dic }
 
