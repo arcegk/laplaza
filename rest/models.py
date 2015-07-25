@@ -17,7 +17,7 @@ class User(AbstractUser):
 
 class Plato(models.Model):
 
-	nombre = models.CharField(max_length=25)
+	nombre = models.CharField(max_length=100)
 	precio = models.FloatField()
 	tipo = models.CharField(max_length=25 , choices = constants.TYPE)
 	seccion = models.CharField(max_length=25 , choices=constants.SECTION )
