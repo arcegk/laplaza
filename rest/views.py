@@ -56,7 +56,7 @@ class AlmuerzoView(View):
 				'precio' : item.precio
 
 							})
-			elif item.tipo == "CARNE":
+			elif item.tipo == "PROTEINA":
 				carne.append({
 							
 				'id' : item.id ,
@@ -262,10 +262,32 @@ class UserRegisterApiView(APIView):
 		return HttpResponse(json.dumps({'success' : True }))
 		
 
-class ReporteListView(ListView):
+class ReporteAPIView(APIView):
+	def get_context_data(self, **kwargs):
+		context = super(ReporteListView, self).get_context_data(**kwargs)
+		return context
+	
+	def get(self, request):
+		pedido = []
+		queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('id')
 
-	today = date.today()
-	queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('-fecha')
+		for item in queryset:
+			pedido.append({
+
+				'id' : item.id ,
+				'nombre' : item.nombre,
+				'direccion' : item.direccion,
+				'telefono' : item.telefono,
+				'observaciones' : item.observaciones,
+				'estado' : item.estado,
+				'precio' : item.precio,
+			})
+
+		jsn = {'pedido' : pedido}
+		return HttpResponse(json.dumps(jsn))
+
+class ReporteListView(ListView):
+	queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('id')
 	template_name = 'report.html'
 
 

@@ -2,7 +2,7 @@ TYPE = (
 	
 	('SOPA' , 'SOPA') ,
 	('PRINCIPIO' , 'PRINCIPIO'),
-	('CARNE' , 'CARNE'),
+	('PROTEINA' , 'PROTEINA'),
 	('ENSALADA' , 'ENSALADA'),
 	('ARROZ' , 'ARROZ'),
 	('BEBIDA' , 'BEBIDA') ,
