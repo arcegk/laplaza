@@ -107,7 +107,7 @@ class AlmuerzoView(View):
 		dic.append({'PRINCIPIO' : prin})
 		dic.append({'ARROZ' : arroz})
 		dic.append({'ENSALADA' : ensa})
-		dic.append({'CARNE' : carne})
+		dic.append({'PROTEINA' : carne})
 		dic.append({'ACOMPANANTE' : acom})
 		dic.append({'BEBIDA' : bebida})
 
