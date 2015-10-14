@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated , IsAdminUser
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
 from datetime import date
@@ -263,6 +263,9 @@ class UserRegisterApiView(APIView):
 		
 
 class ReporteAPIView(APIView):
+
+	permission_classes = (IsAdminUser, )
+
 	def get_context_data(self, **kwargs):
 		context = super(ReporteListView, self).get_context_data(**kwargs)
 		return context

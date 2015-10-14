@@ -53,7 +53,7 @@ urlpatterns = patterns('',
         BebidaView.as_view(),
         name = 'register') ,
 
-    url(r'^reporte' ,
+    url(r'^reporte$' ,
         ReporteListView.as_view(),
         name="reporte"),
 
