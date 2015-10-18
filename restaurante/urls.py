@@ -3,7 +3,7 @@ from django.contrib import admin
 from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
     PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
     BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
-    AjaxStatusView , ReporteAPIView , UpdateStatusView
+    AjaxStatusView , ReporteAPIView , UpdateStatusAPIsView
 
 urlpatterns = patterns('',
     # Examples:
