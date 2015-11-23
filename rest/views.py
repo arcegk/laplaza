@@ -324,7 +324,8 @@ class AjaxStatusView(View):
 		return HttpResponse(json.dumps({'success' : True}) ,content_type='application/json')
 
 class UpdateStatusAPIView(APIView):
-
+	permission_classes = (IsAuthenticated, )
+	
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
