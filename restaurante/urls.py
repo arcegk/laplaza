@@ -73,7 +73,7 @@ urlpatterns = patterns('',
         ReporteAPIView.as_view() , 
         name="reporte_api"),
 
-    url(r'^update-status$' ,
+    url(r'^update_status$' ,
      UpdateStatusAPIView.as_view() ,
       name="update_status" ),
 
