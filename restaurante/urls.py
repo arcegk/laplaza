@@ -75,6 +75,6 @@ urlpatterns = patterns('',
 
     url(r'^update-status$' ,
      UpdateStatusAPIView.as_view() ,
-      name="update-status" ),
+      name="update_status" ),
 
 )
