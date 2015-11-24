@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
 import json , ast
 from django.http import HttpResponse
-from .models import Plato , Menu , Pedido , User
+from .models import Plato , Menu , Pedido , User , Config
 from .forms import PanelDesayunosForm , PanelAlmuerzosForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin 
@@ -334,5 +334,13 @@ class UpdateStatusAPIView(APIView):
 		obj.estado = "ENTREGADO"
 		obj.save()
 		return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
+
+class ConfigAPIView(APIView):
+
+	def get(self, request):
+		tel = []
+		obj = Config.objects.get(id=1)
+		tel.append({"tel" : obj})
+		return HttpResponse(json.dumps({"data" :tel }), content_type='aplication/json')
 
 

@@ -3,7 +3,7 @@ from django.contrib import admin
 from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
     PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
     BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
-    AjaxStatusView , ReporteAPIView , UpdateStatusAPIView
+    AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView
 
 urlpatterns = patterns('',
     # Examples:
@@ -76,5 +76,9 @@ urlpatterns = patterns('',
     url(r'^update_status$' ,
      UpdateStatusAPIView.as_view() ,
       name="update_status" ),
+
+     url(r'^config$' ,
+     ConfigAPIView.as_view() ,
+      name="config" ),
 
 )

@@ -48,3 +48,8 @@ class Menu(models.Model):
 
 	platos = models.ManyToManyField(Plato)
 
+
+class Config(models.Model):
+
+	telefono = models.CharField(max_length=10)
+
