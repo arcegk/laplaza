@@ -13,6 +13,7 @@ $( document ).ready(function() {
 	var rice = ""
 	var drink = ""
 	var especial = ""
+	var acom = ""
 
 	{%for obj in form.platos%}
 
@@ -43,6 +44,10 @@ $( document ).ready(function() {
 			{% elif 'ESPECIAL' in obj.choice_label %}
 				especial += "<div>" + '{{obj}}' + "</div>";
 				$(".especial").html(especial);
+
+			{% elif 'ACOMPANANTE' in obj.choice_label %}
+				acom += "<div>" + '{{obj}}' + "</div>";
+				$(".acompañante").html(acom);
 			{%endif%}
 			
 	{%endfor%}
@@ -84,8 +89,10 @@ $( document ).ready(function() {
 				<h2>Ensalada:</h2>
 				<div class="ensalada"></div>
 			</div>
-
-
+			<div class="col-md-2">
+				<h2>Acompañante:</h2>
+				<div class="acompañante"></div>
+			</div>
 			<div  class="col-md-2">
 				<h2>Arroz:</h2>
 				<div class="arroz"></div>
