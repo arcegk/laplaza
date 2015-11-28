@@ -341,6 +341,7 @@ class ConfigAPIView(APIView):
 		tel = []
 		obj = Config.objects.get(id=1)
 		tel.append({"tel" : obj.telefono})
-		return HttpResponse(json.dumps({"data" :tel }), content_type='aplication/json')
+		jsn = {"data" :tel }
+		return HttpResponse(json.dumps(jsn), content_type='aplication/json')
 
 
