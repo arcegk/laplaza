@@ -35,6 +35,7 @@ class AlmuerzoView(View):
 		bebida = []
 		acom = []
 		arroz = []
+		especial = []
 
 		
 		for item in queryset.platos.all():
@@ -103,6 +104,16 @@ class AlmuerzoView(View):
 				'precio' : item.precio 
 				})
 
+			elif item.tipo == "ESPECIAL":
+				especial.append({
+							
+				'id' : item.id ,
+				'nombre' : item.nombre ,
+				'tipo' : item.tipo,
+				'precio' : item.precio 
+				})
+
+		dic.append({'ESPECIAL' : especial})
 		dic.append({'SOPA' : sopa})
 		dic.append({'PRINCIPIO' : prin})
 		dic.append({'ARROZ' : arroz})
