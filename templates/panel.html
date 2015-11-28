@@ -12,6 +12,7 @@ $( document ).ready(function() {
 	var salad = "" 
 	var rice = ""
 	var drink = ""
+	var especial = ""
 
 	{%for obj in form.platos%}
 
@@ -38,6 +39,10 @@ $( document ).ready(function() {
 			{% elif 'BEBIDA' in obj.choice_label %}
 				drink += "<div>" + '{{obj}}' + "</div>";
 				$(".bebida").html(drink);
+
+			{% elif 'ESPECIAL' in obj.choice_label %}
+				drink += "<div>" + '{{obj}}' + "</div>";
+				$(".especial").html(especial);
 			{%endif%}
 			
 	{%endfor%}
@@ -50,6 +55,13 @@ $( document ).ready(function() {
 	<body>
 	<div class="container">
 		<form method= 'POST' action = ''> {%csrf_token%}
+
+		<div >
+			<div class="col-md-2">
+				<h2>Especial</h2>
+				<div class="especial"></div>
+			</div>
+		</div>
 
 		<div >
 			<div class="col-md-2">
