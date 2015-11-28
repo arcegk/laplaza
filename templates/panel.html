@@ -24,7 +24,7 @@ $( document ).ready(function() {
 				soap += "<div>" + '{{obj}}' + "</div>";
 				$(".sopa").html(soap);
 			
-			{% elif 'CARNE' in obj.choice_label %}
+			{% elif 'PROTEINA' in obj.choice_label %}
 				meat += "<div>" + '{{obj}}' + "</div>";
 				$(".carne").html(meat);
 
@@ -41,7 +41,7 @@ $( document ).ready(function() {
 				$(".bebida").html(drink);
 
 			{% elif 'ESPECIAL' in obj.choice_label %}
-				drink += "<div>" + '{{obj}}' + "</div>";
+				especial += "<div>" + '{{obj}}' + "</div>";
 				$(".especial").html(especial);
 			{%endif%}
 			
@@ -58,7 +58,7 @@ $( document ).ready(function() {
 
 		<div >
 			<div class="col-md-2">
-				<h2>Especial</h2>
+				<h2>Especial:</h2>
 				<div class="especial"></div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ $( document ).ready(function() {
 			</div>
 
 			<div  class="col-md-2">
-				<h2>Carne:</h2>
+				<h2>Proteina:</h2>
 				<div class="carne"></div>
 			</div>
 
