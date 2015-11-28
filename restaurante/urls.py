@@ -77,7 +77,7 @@ urlpatterns = patterns('',
      UpdateStatusAPIView.as_view() ,
       name="update_status" ),
 
-     url(r'^config$' ,
+     url(r'^config_api$' ,
      ConfigAPIView.as_view() ,
       name="config" ),
 
