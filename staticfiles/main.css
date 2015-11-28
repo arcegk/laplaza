@@ -1,0 +1,219 @@
+/* Estilos globales */
+
+body {
+    font-size: 16px;
+    color: #e74c3c;
+    background-color: #f5f7f8;
+    overflow-x: hidden;
+}
+
+p {
+    font-size: 1em;
+    font-family: Asap, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: Lobster, serif;
+}
+
+h1 {
+    font-size: 2.3em;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.6em;
+    font-weight: 550;
+}
+
+h4 {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+h4 {
+    font-size: 1.2em;
+    font-weight: 450;
+}
+
+.center-block {
+    margin: 0 auto !important;
+    float: none !important;
+}
+
+
+/* Fin de estilos globales */
+
+
+/* Sección principal */
+
+#app {
+    padding-top: 30px;
+    position: relative;
+}
+
+#app-img-nexus {
+    width: 150px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+#logo {
+    margin-top: 2em !important;
+    margin: 0 auto;
+    float: none;
+    width: 150px;
+    height: 100px;
+}
+
+#info {
+    text-align: center;
+}
+
+#buttons {
+    margin-top: 1em !important;
+    margin-bottom: 2em !important;
+}
+
+.badge-container {
+    position: relative;
+}
+
+.app-badge {
+    width: 127px;
+    height: 45px;
+}
+
+#badge-left {
+    float: right;
+}
+
+#badge-right {
+    float: left;
+}
+
+.tool {
+    position: absolute;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 5px;
+    bottom: 60px;
+    left: 10%;
+    background-color: #14296a;
+    color: rgb(245, 247, 248);
+    z-index: 5;
+    display: none;
+}
+
+.triangulo {
+    display: none;
+    position: absolute;
+    bottom: 45px;
+    left: 48px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 15px 0 15px;
+    border-color: #14296a transparent transparent transparent;
+}
+
+
+/* Fin de sección principal */
+
+
+/* Footer */
+
+footer {
+    color: rgb(245, 247, 248);
+    padding: 1em;
+    background-color: #14296a;
+    border-top: 8px solid #12275b;
+    text-align: center;
+    font-size: .8em;
+}
+
+footer i {
+    color: rgb(245, 247, 248);
+    margin-left: 10px;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+}
+
+footer i:hover {
+    font-size: 2.5em;
+    color: rgb(219, 219, 219);
+}
+
+
+/* Fin del footer */
+
+
+/* --------------------------------------
+   Media Queries (Mobile First)
+   -------------------------------------- */
+
+@media screen and (min-width: 768px) {
+    .main {
+        margin-top: 10%;
+    }
+    #logo {
+        width: 170px;
+        height: 115px;
+        margin: 0;
+        float: left !important;
+    }
+    #info,
+    #buttons {
+        text-align: left;
+        padding-left: 0;
+    }
+    #app-img-nexus {
+        width: 270px;
+        height: 530px;
+        margin: 0 auto;
+    }
+    #app {
+        padding-right: 0;
+    }
+    .badge-container {
+        padding-left: 0 !important;
+    }
+    #badge-left {
+        float: left !important;
+    }
+    footer {
+        margin-top: 3em;
+        text-align: left;
+    }
+    footer #social {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    #titulo {
+        margin-bottom: 1em;
+    }
+    #titulo h1 {
+        padding-top: 9%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    #info,
+    #buttons {
+        margin-left: -5em;
+    }
+}

@@ -1,74 +1,80 @@
 {% load static from staticfiles %}
 <!DOCTYPE html>
-<html lang="es">
+
+<html>
+
 <head>
-	<title>Restaurante Plaza</title>
-	<meta charset="utf-8">
-	<meta name="author" content="sikkuinova">
-	<meta name="description" content="Restaurante plaza"/>
-
-	<link rel="stylesheet" type="text/css" href="{% static 'Resto/css/reset.css'%}">
-	<link rel="stylesheet" type="text/css" href="{% static 'Resto/css/main.css'%}">
-
-    <script type="text/javascript" src="{% static 'Resto/js/jquery.css'%}"></script>
-    <script type="text/javascript" src="{% static 'Resto/js/carouFredSel.js'%}"></script>
-    <script type="text/javascript" src="{% static 'Resto/js/easing.js'%}"></script>
-    <script type="text/javascript" src="{% static 'Resto/js/main.js'%}"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Plaza</title>
+    <link rel="shortcut icon" href="{% static 'Media/Imagenes/favicon.ico'%}" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lobster&subset=latin-ext' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Asap&subset=latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'Support/Bootstrap/css/bootstrap.min.css'%}">
+    <script type="text/javascript" src="{% static 'Support/Bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <script type="text/javascript" src="{% static 'functions.js' %}"></script>
 </head>
+
 <body>
+    <section class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6" id="app">
+                <img src="{% static 'Media/Imagenes/nexus-02.png' %}" class="img-responsive" alt="app" id="app-img-nexus">
+            </div>
 
-	<!--  start header  -->
-	<header>
-		<div class="wrapper">
-			<div class="logo">
-				<a href=""><img src="" alt="Logo" title=""/></a>
-			</div>
+            <div class="row main">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-0" id="info">
+                    <div class="row" id="titulo">
+                        <img src="{% static 'Media/Imagenes/logo.png' %}" class="col-xs-12 col-md-4 img-responsive" alt="logo" id="logo">
+                        <h1 class="col-xs-12 col-md-8">Restaurante Plaza</h1>
+                    </div>
 
-			<nav>
-				<ul>
-					
-					<li><a href="" class="active">Home</a></li>
-					<li><a href="">Menu</a></li>
-					<li><a href="">Haz tu pedido</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header><!--  end header  -->
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsum, praesentium. Libero delectus, ab facilis odio, aperiam, porro, facere amet excepturi quas rerum nisi. Eligendi illo autem quibusdam rerum vero!</p>
+                </div>
 
+                <div class="col-xs-12 col-sm-6" id="buttons">
+                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3 badge-container">
+                        <a href="#" target="_blank"><img id="badge-left" class="app-badge" src="{% static 'Media/Imagenes/android%20badge.png' %}" alt="botón-android"></a>
+                    </div>
 
-	<!--  start hero  -->
-	<section class="hero">
-		<div class="caption">
-			<h3>Restaurante Plaza</h3>
-			<h4>
-				<span class="rsep"></span>
-				El mejor restaurante del centro de Cali
-				<span class="lsep"></span>
-			</h4>
-			
-		</div>
-	</section><!--  end hero  -->
+                    <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3 badge-container">
+                       <div class="tool" id="no-disponible">
+                               <h5>Próximamente</h5>
+                       </div>
+                       <div class="triangulo"></div>
+                       
+                        <img id="badge-right" class="app-badge" src="{% static 'Media/Imagenes/app-store-badge.png' %}" alt="botón-ios">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-	<!--  start footer  -->
-	<footer>
-		<div class="wrapper">
-			<!-- adresse1  -->
-			<section class="adress">
-				<p>Centro</p> 
-				<p class="location">Cra 6 #10 - 33<br/></p>
-				<p class="phone">23124234</p>
-			</section>
+    <footer class="container-fluid">
+        <div class="container">
+            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                <h3>Acerca de nosotros</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus pariatur, vitae praesentium consequuntur hic sint provident at, commodi similique temporibus sequi mollitia cumque quaerat voluptatum amet ipsa vel inventore, molestiae.</p>
+            </div>
 
-			</section>
+            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                <h3>Sikuinnova</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi odio natus voluptatibus sint omnis id ad consequuntur nisi cum modi ab necessitatibus tempora, a iusto qui quam suscipit aspernatur! Accusamus.</p>
+            </div>
 
-			<!--  footer copyrights  -->
-			<section class="copyrights">
-				<img src="" class="footer_logo" alt="" title="">
-				<p>© All Rights Reserved 2015.</p>
-				<p>Desing By<a href="http://sikuinnova.com">Sikuinnova</a></p>	
-			</section>
-		</div>
-	</footer><!--  end footer  -->
-
+            <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0" id="social">
+               <h3>Ponte en contacto</h3>
+                <ul class="list-inline">
+                    <li><a href="#" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
+                    <li><a href="#" target="_blank"><i class="fa fa-twitter fa-2x"></i></a></li>
+                    <li><a href="#" target="_blank"><i class="fa fa-youtube fa-2x"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>
