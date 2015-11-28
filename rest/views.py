@@ -335,7 +335,7 @@ class UpdateStatusAPIView(APIView):
 		obj.save()
 		return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
 
-class ConfigAPIView(APIView):
+class ConfigAPIView(View):
 	def get_context_data(self, **kwargs):
 	    context = super(ConfigAPIView, self).get_context_data(**kwargs)
 	    return context
@@ -345,6 +345,6 @@ class ConfigAPIView(APIView):
 		obj = Config.objects.get(id=1)
 		tel.append({"tel" : obj.telefono})
 		jsn = {"data" :tel }
-		return HttpResponse(json.dumps(jsn), content_type='aplication/json')
+		return HttpResponse(json.dumps(jsn))
 
 

@@ -79,6 +79,6 @@ urlpatterns = patterns('',
 
      url(r'^config_api$' ,
      ConfigAPIView.as_view() ,
-      name="config" ),
+      name="config_api" ),
 
 )
