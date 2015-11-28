@@ -336,6 +336,9 @@ class UpdateStatusAPIView(APIView):
 		return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
 
 class ConfigAPIView(APIView):
+	def get_context_data(self, **kwargs):
+	    context = super(ConfigAPIView, self).get_context_data(**kwargs)
+	    return context
 
 	def get(self, request):
 		tel = []
