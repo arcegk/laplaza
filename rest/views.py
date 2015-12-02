@@ -283,6 +283,7 @@ class ReporteAPIView(APIView):
 	
 	def get(self, request):
 		pedido = []
+		orden = []
 		queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('id')
 
 		for item in queryset:
@@ -294,7 +295,21 @@ class ReporteAPIView(APIView):
 				'telefono' : item.telefono,
 				'observaciones' : item.observaciones,
 				'estado' : item.estado,
-				'precio' : item.precio,
+				'precio' : item.precio, 
+
+			})
+
+			for itm in item.orden.all(): 
+				orden.append({
+
+					itm.tipo : itm.nombre,
+
+				})
+
+		pedido.append({
+
+				'orden' : orden,
+
 			})
 
 		jsn = {'pedido' : pedido}
