@@ -6,7 +6,8 @@ from django.http import HttpResponse
 from .models import Plato , Menu , Pedido , User , Config
 from .forms import PanelDesayunosForm , PanelAlmuerzosForm
 from django.core.urlresolvers import reverse, reverse_lazy
-from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin 
+from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated , IsAdminUser
@@ -113,7 +114,7 @@ class AlmuerzoView(View):
 				'precio' : item.precio 
 				})
 
-		dic.append({'ESPECIAL' : especial})
+#		dic.append({'ESPECIAL' : especial})
 		dic.append({'SOPA' : sopa})
 		dic.append({'PRINCIPIO' : prin})
 		dic.append({'ARROZ' : arroz})
@@ -283,7 +284,6 @@ class ReporteAPIView(APIView):
 	
 	def get(self, request):
 		pedido = []
-		orden = []
 		queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('id')
 
 		for item in queryset:
@@ -301,6 +301,37 @@ class ReporteAPIView(APIView):
 
 		jsn = {'pedido' : pedido}
 		return HttpResponse(json.dumps(jsn))
+
+
+
+class DetalleAPIView(APIView):
+
+	permission_classes = (IsAdminUser, )
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		ide = dta['id']
+		pedido = []
+
+		try :
+			item = Pedido.objects.get(id=ide)
+
+			for item in item.orden.all():
+				pedido.append({
+					item.tipo : item.nombre,
+				})
+
+
+			jsn = {'pedido' : pedido}
+
+		except ObjectDoesNotExist:
+			jsn = {'success' : 'object does not exist'}
+
+		return HttpResponse(json.dumps(jsn))
+
+
+
 
 class ReporteListView(ListView):
 	queryset = Pedido.objects.all().exclude(estado="ENTREGADO").order_by('id')
