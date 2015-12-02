@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated , IsAdminUser
+from geopy .distance import great_circle
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
 from datetime import date
@@ -390,5 +391,21 @@ class ConfigAPIView(View):
 		tel.append({"tel" : obj.telefono})
 		jsn = {"data" :tel }
 		return HttpResponse(json.dumps(jsn))
+
+class CheckRangeAPIView(APIView):
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		lat = dta['lat']
+		lon = dta['lon']
+		p = (3.450398, -76.532919)
+		dis = great_circle(p,( lat, lon ))
+		print dis
+		if dis < .25:
+			return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
+		else:
+			return HttpResponse(json.dumps({'success' : False}), content_type='aplication/json')
+
 
 

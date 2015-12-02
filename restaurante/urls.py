@@ -3,7 +3,8 @@ from django.contrib import admin
 from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
     PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
     BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
-    AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView , DetalleAPIView
+    AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView , DetalleAPIView ,\
+    CheckRangeAPIView
 
 urlpatterns = patterns('',
     # Examples:
@@ -84,5 +85,10 @@ urlpatterns = patterns('',
      url(r'^detalle_pedido$' ,
      DetalleAPIView.as_view() ,
       name="detalle_api" ),
+
+     url(r'^checkrange$' ,
+     CheckRangeAPIView.as_view() ,
+      name="checkrangekr" ),
+
 
 )
