@@ -320,7 +320,8 @@ class DetalleAPIView(APIView):
 
 			for item in item.orden.all():
 				pedido.append({
-					item.tipo : item.nombre,
+					'nombre': item.nombre,
+					'tipo' : item.tipo,
 				})
 
 
