@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
 import json , ast
 from django.http import HttpResponse
-from .models import Plato , Menu , Pedido , User , Config
+from .models import Plato , Menu , Pedido , User , Config , Ubicacion
 from .forms import PanelDesayunosForm , PanelAlmuerzosForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin
@@ -400,6 +400,10 @@ class CheckRangeAPIView(APIView):
 		dta = json.loads(js)
 		lat = dta['lat']
 		lon = dta['lon']
+		obj = Ubicacion()
+		obj.lat = lat
+		obj.lon = lon
+		obj.save()
 		p = (3.450398, -76.532919)
 		dis = great_circle(p,( lat, lon ))
 		print dis
