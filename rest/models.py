@@ -21,7 +21,7 @@ class Plato(models.Model):
 	precio = models.FloatField()
 	tipo = models.CharField(max_length=25 , choices = constants.TYPE)
 	seccion = models.CharField(max_length=25 , choices=constants.SECTION )
-	precio_extra = models.FloatField()
+	precio_extra = models.FloatField(default= 0)
 
 	
 	def __unicode__(self):
