@@ -47,7 +47,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio
+				'precio' : item.precio,
+				'extra' : item.precio_extra
 
 							})
 			elif item.tipo == "PRINCIPIO":
@@ -56,7 +57,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio
+				'precio' : item.precio,
+				'extra' : item.precio_extra
 
 							})
 			elif item.tipo == "PROTEINA":
@@ -65,7 +67,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio
+				'precio' : item.precio,
+				'extra' : item.precio_extra
 
 							})
 
@@ -75,7 +78,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio
+				'precio' : item.precio,
+				'extra' : item.precio_extra
 
 							})
 			elif item.tipo == "BEBIDA":
@@ -84,7 +88,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio
+				'precio' : item.precio,
+				'extra' : item.precio_extra
 
 							})
 
@@ -94,7 +99,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio 
+				'precio' : item.precio,
+				'extra' : item.precio_extra 
 				})
 
 			elif item.tipo == "ARROZ":
@@ -103,7 +109,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio 
+				'precio' : item.precio,
+				'extra' : item.precio_extra 
 				})
 
 			elif item.tipo == "ESPECIAL":
@@ -112,7 +119,8 @@ class AlmuerzoView(View):
 				'id' : item.id ,
 				'nombre' : item.nombre ,
 				'tipo' : item.tipo,
-				'precio' : item.precio 
+				'precio' : item.precio,
+				'extra' : item.precio_extra 
 				})
 
 #		dic.append({'ESPECIAL' : especial})
