@@ -377,7 +377,7 @@ class UpdateStatusAPIView(APIView):
 		dta = json.loads(js)
 		data = dta['data']
 		obj = Pedido.objects.get(pk=data.get('id'))
-		obj.estado = "ENTREGADO"
+		obj.estado = data.get('estado').upper()
 		obj.save()
 		return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
 
