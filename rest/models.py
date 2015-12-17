@@ -28,6 +28,10 @@ class Plato(models.Model):
 
 		return ("%s - %s") %(self.nombre , self.tipo)
 
+	def save(self, *args , **kwargs):
+		self.nombre = self.nombre.upper()
+		super(Plato, self).save(*args, **kwargs)
+
 
 
 class Pedido(models.Model):
@@ -61,4 +65,6 @@ class Ubicacion(models.Model):
 	lon = models.CharField(max_length=200)
 	fecha = models.DateField(auto_now_add=True)
 
+	def __unicode__(self):
 
+		return ("%s , %s") %(self.lat , self.lon)
