@@ -412,7 +412,7 @@ class CheckRangeAPIView(APIView):
 		obj.lat = lat
 		obj.lon = lon
 		obj.save()
-		p = (3.409764, -76.526360)
+		p = (3.450398, -76.532919)
 		dis = great_circle(p,( lat, lon ))
 		print dis
 		if dis < .25:
