@@ -9,19 +9,22 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+#this project needs a restructuration for good practices
 import os
 from os.path import dirname , join
 BASE_DIR = dirname (dirname(__file__))
+import environ
 
+env = environ.Env() 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@r88v%zh0vu6d)=01w)7m!@=^+&j1&2_1!$aujfji%i7=7@+dm'
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -69,14 +72,7 @@ WSGI_APPLICATION = 'restaurante.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd72nl5bg9jhrgq' ,
-        'USER': 'sztbbeubpjaoln',
-        'PASSWORD' : 'QcWenPRSBylu_Ce1H0YmrWWxeU',
-        'HOST' : 'ec2-54-163-226-9.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+    'default': env.db("DATABASE_URL")
 }
 
 # Internationalization
