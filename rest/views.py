@@ -415,10 +415,10 @@ class CheckRangeAPIView(APIView):
 		p = (3.450398, -76.532919)
 		dis = great_circle(p,( lat, lon ))
 		print dis
-		if dis < .3:
-			return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
-		else:
-			return HttpResponse(json.dumps({'success' : False}), content_type='aplication/json')
+	#	if dis < .3:
+		return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
+	#	else:
+	#		return HttpResponse(json.dumps({'success' : False}), content_type='aplication/json')
 
 
 
