@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.crypto import get_random_string
 from . import constants
 # Create your models here.
 
@@ -8,10 +9,17 @@ from . import constants
 class User(AbstractUser):
 
 	empresa = models.CharField(max_length=50 )
+	cod_referido = models.CharField(max_length=6, null=True, unique=True)
 	token = models.CharField(max_length=500 )
 
 	def __unicode__(self):
 		return self.username
+
+	def save(self, *args, **kwargs):
+		c = 'abcdefghijklmnopqrstuvwxyz0123456789'
+		self.cod_referido = get_random_string(6,c)
+		super(User,self).save(*args,**kwargs)
+
 
 
 

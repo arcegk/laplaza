@@ -72,9 +72,18 @@ WSGI_APPLICATION = 'restaurante.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db("DATABASE_URL")
-}
-
+    'default' :{
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd72nl5bg9jhrgq',
+        'HOST': 'ec2-54-163-226-9.compute-1.amazonaws.com', 
+        'USER': 'sztbbeubpjaoln',
+        'PASSWORD': 'QcWenPRSBylu_Ce1H0YmrWWxeU',
+        'PORT': 5432,
+        'OPTIONS' :{
+            'sslmode' : 'require',
+        }
+    }
+    }
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 

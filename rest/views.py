@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated , IsAdminUser
+from django.contrib.auth import authenticate
 from geopy.distance import great_circle
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
@@ -215,8 +216,6 @@ class UserInfo(APIView):
 
 	permission_classes = (IsAuthenticated,)
 	
-
-
 	def get(self , request):
 
 		data ={
@@ -231,7 +230,6 @@ class UserInfo(APIView):
 class PedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
-
 	
 	def get_context_data(self, **kwargs):
 	    context = super(pedidoApiView, self).get_context_data(**kwargs)
@@ -246,8 +244,7 @@ class PedidoApiView(APIView):
 		us = User.objects.get(pk=data['user'])
 		obj.user = us
 		if us.first_name == "generic":
-			obj.nombre = data['nombre']
-			
+			obj.nombre = data['nombre']		
 		else:
 			obj.nombre = us.first_name
 		
@@ -273,11 +270,13 @@ class UserRegisterApiView(APIView):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
 		data = dta['data']
-		user = User.objects.create_user(data['username'] ,
+		user = User.objects.create_user(data['telefono'],
 				data['email'] , 
-				data['pass']  )
+				data['pass'] ,
+				)
 		user.empresa = data['empresa']
 		user.token = data['token']
+		user.telefono = data['telefono']
 		user.save()
 
 		return HttpResponse(json.dumps({'success' : True }))
@@ -419,6 +418,66 @@ class CheckRangeAPIView(APIView):
 		return HttpResponse(json.dumps({'success' : True}), content_type='aplication/json')
 	#	else:
 	#		return HttpResponse(json.dumps({'success' : False}), content_type='aplication/json')
+
+class GetHistoryByPhoneAPIView(APIView):
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		query = Pedido.objects.filter(telefono=phn)
+		lista = []
+		for item in query:
+			lista.append({
+				'id' : item.id ,
+				'nombre' : item.nombre,
+				'direccion' : item.direccion,
+				'telefono' : item.telefono,
+				'observaciones' : item.observaciones,
+				'estado' : item.estado,
+				'precio' : item.precio, 
+		})
+		to_return = json.dumps({'success' : True, 'history' : lista})
+		return HttpResponse(to_return)
+
+
+class ValidatePremiumUserAPIView(APIView):
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		try:
+			query = User.objects.get(username=phn)
+			if query.is_premium:
+				return HttpResponse(json.dumps({'success' : True , 'is_premium' : True}))
+			else:
+				return HttpResponse(json.dumps({'success' : True , 'is_premium' : False}))
+
+		except User.DoesNotExist:
+				return HttpResponse(json.dumps({'success' : False}))
+
+
+class AuthUserAPIView(APIView):
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		pss = dta['pass']
+		try:
+			user = authenticate(username=phn, password=pss)
+			if user is not None:
+				return HttpResponse(json.dumps({'success' : True , 'auth' : True}))
+			else :
+				return HttpResponse(json.dumps({'success' : True , 'auth' : False}))
+		except User.DoesNotExist:
+			return HttpResponse(json.dumps({'success' : False))
+
+
+
+
+
 
 
 

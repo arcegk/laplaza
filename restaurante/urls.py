@@ -4,7 +4,7 @@ from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView
     PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
     BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
     AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView , DetalleAPIView ,\
-    CheckRangeAPIView
+    CheckRangeAPIView, AuthUserAPIView, GetHistoryByPhoneAPIView , ValidatePremiumUserAPIView
 
 urlpatterns = patterns('',
     # Examples:
@@ -89,6 +89,20 @@ urlpatterns = patterns('',
      url(r'^checkrange$' ,
      CheckRangeAPIView.as_view() ,
       name="checkrangekr" ),
+
+    url(r'^history$' ,
+    GetHistoryByPhoneAPIView.as_view(),
+    name = "get_history"),
+
+    url(r'^validate$', 
+        ValidatePremiumUserAPIView.as_view(),
+        name='validate_premium'),
+
+    url(r'^authe$',
+        AuthUserAPIView.as_view(),
+        name='validate_credentials')
+
+
 
 
 )
