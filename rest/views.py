@@ -419,6 +419,7 @@ class CheckRangeAPIView(APIView):
 	#	else:
 	#		return HttpResponse(json.dumps({'success' : False}), content_type='aplication/json')
 
+
 class GetHistoryByPhoneAPIView(APIView):
 
 	def post(self, request):
@@ -469,10 +470,10 @@ class AuthUserAPIView(APIView):
 			user = authenticate(username=phn, password=pss)
 			if user is not None:
 				return HttpResponse(json.dumps({'success' : True , 'auth' : True}))
-			else :
+			else:
 				return HttpResponse(json.dumps({'success' : True , 'auth' : False}))
 		except User.DoesNotExist:
-			return HttpResponse(json.dumps({'success' : False))
+			return HttpResponse(json.dumps({'success' : False}))
 
 
 
