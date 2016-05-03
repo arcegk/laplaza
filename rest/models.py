@@ -10,7 +10,9 @@ class User(AbstractUser):
 
 	empresa = models.CharField(max_length=50 )
 	cod_referido = models.CharField(max_length=6, null=True, unique=True)
+	padrino  = models.ForeignKey('self', null=True)
 	token = models.CharField(max_length=500 )
+
 
 	def __unicode__(self):
 		return self.username

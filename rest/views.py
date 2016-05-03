@@ -216,14 +216,17 @@ class UserInfo(APIView):
 
 	permission_classes = (IsAuthenticated,)
 	
-	def get(self , request):
+	def post(self , request):
 
-		data ={
-			'id' : request.user.id ,
-			'username' : request.user.username ,
-
-		}
-		return Response(data)
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		try :
+			usr = User.objects.get(username=phn)
+			return HttpResponse(json.dumps({'success' : True, 
+				'code' : usr.cod_referido}))
+		except User.DoesNotExist:
+			return HttpResponse(json.dumps({'success' : False}))
 
 	
 
@@ -270,13 +273,18 @@ class UserRegisterApiView(APIView):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
 		data = dta['data']
-		user = User.objects.create_user(data['telefono'],
+		user = User.objects.create_user(data['phone'],
 				data['email'] , 
 				data['pass'] ,
 				)
-		user.empresa = data['empresa']
+		user.empresa = data['company']
 		user.token = data['token']
-		user.telefono = data['telefono']
+		user.telefono = data['phone']
+		try :
+			padrino = User.objects.get(cod_referido=data['padrino'])
+			user.padrino = padrino
+		except User.DoesNotExist:
+			user.padrino = None
 		user.save()
 
 		return HttpResponse(json.dumps({'success' : True }))
@@ -474,6 +482,8 @@ class AuthUserAPIView(APIView):
 				return HttpResponse(json.dumps({'success' : True , 'auth' : False}))
 		except User.DoesNotExist:
 			return HttpResponse(json.dumps({'success' : False}))
+
+
 
 
 

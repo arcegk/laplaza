@@ -38,9 +38,9 @@ urlpatterns = patterns('',
     	PedidoApiView.as_view() , 
     	name='pedido-post' ) ,
 
-    url(r'^info' ,
+    url(r'^user-info' ,
     	UserInfo.as_view() , 
-    	name='info') ,
+    	name='user_info') ,
 
     url(r'^desayuno' ,
         DesayunoView.as_view(),
