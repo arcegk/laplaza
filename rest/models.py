@@ -12,6 +12,7 @@ class User(AbstractUser):
 	cod_referido = models.CharField(max_length=6, null=True, unique=True)
 	padrino  = models.ForeignKey('self', null=True)
 	token = models.CharField(max_length=500 )
+	is_premium = models.BooleanField(default=False)
 
 
 	def __unicode__(self):
