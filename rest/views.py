@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate
 from geopy.distance import great_circle
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
+from django.db import IntegrityError
 from datetime import date
 
 
@@ -273,21 +274,26 @@ class UserRegisterApiView(APIView):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
 		data = dta['data']
-		user = User.objects.create_user(data['phone'],
-				data['email'] , 
-				data['pass'] ,
-				)
-		user.empresa = data['company']
-		user.token = data['token']
-		user.telefono = data['phone']
-		try :
-			padrino = User.objects.get(cod_referido=data['padrino'])
-			user.padrino = padrino
-		except User.DoesNotExist:
-			user.padrino = None
-		user.save()
+		try:
+			user = User.objects.create_user(data['phone'],
+					data['email'] , 
+					data['pass'] ,
+					)
+			user.empresa = data['company']
+			user.token = data['token']
+			user.telefono = data['phone']
+			try:
+				padrino = User.objects.get(cod_referido=data['padrino'])
+				user.padrino = padrino
 
-		return HttpResponse(json.dumps({'success' : True }))
+			except User.DoesNotExist:
+				user.padrino = None
+			user.save()
+			return HttpResponse(json.dumps({'success' : True }))
+		
+		except IntegrityError:
+			return HttpResponse(json.dumps({'success' : False , 'type' : 'user already exists'}))
+		
 		
 
 class ReporteAPIView(APIView):
