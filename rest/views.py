@@ -451,7 +451,7 @@ class GetHistoryByPhoneAPIView(APIView):
 				'observaciones' : item.observaciones,
 				'estado' : item.estado,
 				'precio' : item.precio,
-				'fecha' : item.fecha, 
+				'fecha' : item.fecha.strftime('%m-%d-%Y'), 
 		})
 		to_return = json.dumps({'success' : True, 'history' : lista})
 		return HttpResponse(to_return)
