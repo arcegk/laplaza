@@ -103,7 +103,7 @@ urlpatterns = patterns('',
         AuthUserAPIView.as_view(),
         name='validate_credentials'),
 
-    url(r'^get-reference$',
+    url(r'^reference$',
         GetReferenceAPIView.as_view(),
         name='get_reference'),
 
