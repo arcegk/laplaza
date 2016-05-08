@@ -485,6 +485,21 @@ class AuthUserAPIView(APIView):
 			return HttpResponse(json.dumps({'success' : False}))
 
 
+class GetReferenceAPIView(APIView):
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		try:
+			query = User.objects.get(username=phn)
+			return HttpResponse(json.dumps({'success' : True , 
+				'reference' : query.cod_referido }))
+		except:
+			return HttpResponse(json.dumps({'success' : False , 
+				'reference' : None }))
+
+
 
 
 

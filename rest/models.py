@@ -19,8 +19,9 @@ class User(AbstractUser):
 		return self.username
 
 	def save(self, *args, **kwargs):
-		c = 'abcdefghijklmnopqrstuvwxyz0123456789'
-		self.cod_referido = get_random_string(6,c)
+		if not self.id:
+			c = 'abcdefghijklmnopqrstuvwxyz0123456789'
+			self.cod_referido = get_random_string(6,c)
 		super(User,self).save(*args,**kwargs)
 
 
