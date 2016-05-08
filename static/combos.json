@@ -1,0 +1,55 @@
+{
+  "combos": [
+    {
+      "id": "1",
+      "name_combo": "Combo 1",
+      "no_lunch": 5,
+      "no_lunch_special": 0,
+      "normal_price": "$ 37.500",
+      "price": "$ 32.500"
+    },
+    {
+      "id": "2",
+      "name_combo": "Combo 2",
+      "no_lunch": 9,
+      "no_lunch_special": 1,
+      "normal_price": "$ 75.000",
+      "price": "$ 65.000"
+    },
+    {
+      "id": "3",
+      "name_combo": "Combo 3",
+      "no_lunch": 13,
+      "no_lunch_special": 2,
+      "normal_price": "$ 112.000",
+      "price": "$ 97.500"
+    },
+    {
+      "id": "4",
+      "name_combo": "Combo 4",
+      "no_lunch": 16,
+      "no_lunch_special": 4,
+      "normal_price": "$ 150.000",
+      "price": "$ 130.000"
+    }
+  ],
+  "especiales": [
+    "Frijolada",
+    "Arroz Mixto",
+    "Arroz con pollo",
+    "Arroz Antioqueño",
+    "Arroz Cubano",
+    "Ajiaco",
+    "Mondonjo",
+    "Costilla BBQ",
+    "Sancocho de pescado",
+    "Sancocho de gallina"
+  ],
+  "lunch": [
+    "Sopa",
+    "Carne",
+    "Ensalada",
+    "Acompañante",
+    "Limonada"
+  ]
+}
