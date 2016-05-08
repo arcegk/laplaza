@@ -444,7 +444,8 @@ class GetHistoryByPhoneAPIView(APIView):
 				'telefono' : item.telefono,
 				'observaciones' : item.observaciones,
 				'estado' : item.estado,
-				'precio' : item.precio, 
+				'precio' : item.precio,
+				'fecha' : item.fecha, 
 		})
 		to_return = json.dumps({'success' : True, 'history' : lista})
 		return HttpResponse(to_return)
