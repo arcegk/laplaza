@@ -292,7 +292,7 @@ class UserRegisterApiView(APIView):
 			return HttpResponse(json.dumps({'success' : True }))
 		
 		except IntegrityError:
-			return HttpResponse(json.dumps({'success' : False , 'type' : 'user already exists'}))
+			return HttpResponse(json.dumps({'success' : False , 'type' : 'El usuario ya existe'}))
 		
 		
 
