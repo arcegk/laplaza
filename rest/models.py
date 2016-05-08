@@ -13,6 +13,7 @@ class User(AbstractUser):
 	padrino  = models.ForeignKey('self', null=True)
 	token = models.CharField(max_length=500 )
 	is_premium = models.BooleanField(default=False)
+	telefono = models.CharField(max_length=10)
 
 
 	def __unicode__(self):
