@@ -5,7 +5,7 @@ from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView
     BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
     AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView , DetalleAPIView ,\
     CheckRangeAPIView, AuthUserAPIView, GetHistoryByPhoneAPIView , ValidatePremiumUserAPIView,\
-    GetReferenceAPIView, GetUserCreditAPIView
+    GetReferenceAPIView, GetUserCreditAPIView, VentaRegisterAPIView , GetCombosView
 
 urlpatterns = patterns('',
     # Examples:
@@ -109,7 +109,15 @@ urlpatterns = patterns('',
 
     url(r'^get-credit$',
         GetUserCreditAPIView.as_view(),
-        name='get_credit')
+        name='get_credit'),
+
+    url(r'^get-combos$',
+        GetCombosView.as_view(),
+        name='get_combos'),
+    
+    url(r'^venta$',
+        VentaRegisterAPIView.as_view(),
+        name='register_venta')
 
 
 )

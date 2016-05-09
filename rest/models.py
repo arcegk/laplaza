@@ -84,3 +84,18 @@ class Ubicacion(models.Model):
 	def __unicode__(self):
 
 		return ("%s , %s") %(self.lat , self.lon)
+
+
+class Combo(models.Model):
+	name_combo = models.CharField(max_length=30)
+	no_lunch = models.IntegerField()
+	no_lunch_special = models.IntegerField()
+	normal_price = models.FloatField()
+	price = models.FloatField()
+
+
+class Venta(models.Model):
+	user = models.ForeignKey(User)
+	combo = models.ForeignKey(Combo)
+	fecha = models.DateField(auto_now_add=True)
+

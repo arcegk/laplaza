@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
 import json , ast
 from django.http import HttpResponse
-from .models import Plato , Menu , Pedido , User , Config , Ubicacion
+from .models import Plato , Menu , Pedido , User , Config , Ubicacion, Combo , Venta
 from .forms import PanelDesayunosForm , PanelAlmuerzosForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin
@@ -16,7 +16,8 @@ from geopy.distance import great_circle
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
 from django.db import IntegrityError
-from datetime import date
+from datetime import datetime
+from serializers import ComboSerializer
 
 
 
@@ -266,7 +267,7 @@ class PedidoApiView(APIView):
 						obj.cobrar = False
 			us.save()
 			obj.save()
-			
+
 		except User.DoesNotExist:
 			us = User.objects.get(username="generic")
 			obj.user = us
@@ -465,8 +466,6 @@ class GetHistoryByPhoneAPIView(APIView):
 				'id' : item.id ,
 				'nombre' : item.nombre,
 				'direccion' : item.direccion,
-				'telefono' : item.telefono,
-				'observaciones' : item.observaciones,
 				'estado' : item.estado,
 				'precio' : item.precio,
 				'fecha' : item.fecha.strftime('%m-%d-%Y'), 
@@ -536,6 +535,35 @@ class GetUserCreditAPIView(APIView):
 						'especial_credit' : query.credito_especial }))
 		except User.DoesNotExist:
 			return HttpResponse(json.dumps({'success' : False})) 
+
+
+class GetCombosView(View):
+
+	def get(self,request):
+		serializer = ComboSerializer(Combo.objects.all(), many=True)
+		dit = [	"Frijolada","Arroz Mixto","Arroz con pollo","Arroz Antioqueño",
+    			"Arroz Cubano","Ajiaco","Mondonjo","Costilla BBQ","Sancocho de pescado",
+    			"Sancocho de gallina"]
+    	dic = ["Sopa","Carne","Ensalada","Acompañante","Limonada"]
+		return HttpResponse(json.dumps({'combos' : serializer.data , 'especial' : dit ,
+							'lunch' : dic}))
+
+
+class VentaRegisterAPIView(APIView):
+
+	def post(self, request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		combo = dta['id_combo']
+		try:
+			query = User.objects.get(username=phn)
+			cmb = Combo.objects.get(pk=combo)
+			venta = Venta.objects.create(user=query, combo=cmb)
+			return HttpResponse(json.dumps({'success': True, 'id': venta.id}))
+
+
+
 
 
 
