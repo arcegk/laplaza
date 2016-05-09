@@ -245,20 +245,27 @@ class PedidoApiView(APIView):
 		print dta
 		data = dta['data'] 
 		obj = Pedido()
-		us = User.objects.get(pk=data['user'])
-		obj.user = us
-		if us.first_name == "generic":
+		try:
+			us = User.objects.get(username=data['telefono'])
+			obj.user = us
 			obj.nombre = data['nombre']		
-		else:
-			obj.nombre = us.first_name
-		
-		obj.direccion = data['direccion']
-		obj.empresa = data['empresa']
-		obj.telefono = data['telefono']
-		obj.precio = data['precio']
-		obj.observaciones = data['observaciones']
-		obj.estado = "PENDIENTE"
-		obj.save()
+			obj.direccion = data['direccion']
+			obj.empresa = data['empresa']
+			obj.telefono = data['telefono']
+			obj.precio = data['precio']
+			obj.observaciones = data['observaciones']
+			obj.estado = "PENDIENTE"
+			if us.is_premium:
+				if data['is_especial']:
+					if us.credito_especial > 0:
+						us.credito_especial = credito_especial - 1
+						obj.cobrar = False
+				else :
+					if us.credito_normal > 0:
+						us.credito_normal = credito_normal - 1
+						obj.cobrar = False
+			us.save()
+			obj.save()
 
 		for itm in data['platos']:
 			plt = Plato.objects.get(pk=itm)
@@ -505,6 +512,18 @@ class GetReferenceAPIView(APIView):
 			return HttpResponse(json.dumps({'success' : False , 
 				'reference' : None }))
 
+class GetUserCreditAPIView(APIView):
+
+	def post(self,request):
+		js = json.dumps(self.request.data)
+		dta = json.loads(js)
+		phn = dta['phone']
+		try:
+			query = User.objects.get(username=phn)
+			return HttpResponse(json.dumps({'success' : True , 
+						'credit' : query.credito_normal + query.credito_especial }))
+		except User.DoesNotExist:
+			return HttpResponse(json.dumps({'success' : False})) 
 
 
 

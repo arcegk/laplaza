@@ -14,6 +14,8 @@ class User(AbstractUser):
 	token = models.CharField(max_length=500 )
 	is_premium = models.BooleanField(default=False)
 	telefono = models.CharField(max_length=10)
+	credito_especial = models.IntegerField(default=0)
+	credito_normal = models.IntegerField(default=0)
 
 
 	def __unicode__(self):
@@ -59,6 +61,7 @@ class Pedido(models.Model):
 	observaciones = models.TextField(blank=True)
 	nombre = models.CharField(max_length=25)
 	estado = models.CharField(max_length=25)
+	cobrar = models.BooleanField(default=True)
 
 
 
