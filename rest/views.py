@@ -545,8 +545,8 @@ class GetCombosView(View):
     			"Arroz Cubano","Ajiaco","Mondonjo","Costilla BBQ","Sancocho de pescado",
     			"Sancocho de gallina"]
     	dic = ["Sopa","Carne","Ensalada","Acompañante","Limonada"]
-		return HttpResponse(json.dumps({'combos' : serializer.data , 'especial' : dit ,
-							'lunch' : dic}))
+    	return HttpResponse(json.dumps({'combos' : serializer.data , 
+    			'especial' : dit ,'lunch' : dic}))
 
 
 class VentaRegisterAPIView(APIView):
