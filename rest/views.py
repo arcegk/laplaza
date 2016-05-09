@@ -266,6 +266,17 @@ class PedidoApiView(APIView):
 						obj.cobrar = False
 			us.save()
 			obj.save()
+			
+		except User.DoesNotExist:
+			us = User.objects.get(username="generic")
+			obj.user = us
+			obj.nombre = data['nombre']		
+			obj.direccion = data['direccion']
+			obj.empresa = data['empresa']
+			obj.telefono = data['telefono']
+			obj.precio = data['precio']
+			obj.observaciones = data['observaciones']
+			obj.estado = "PENDIENTE"
 
 		for itm in data['platos']:
 			plt = Plato.objects.get(pk=itm)
@@ -521,7 +532,8 @@ class GetUserCreditAPIView(APIView):
 		try:
 			query = User.objects.get(username=phn)
 			return HttpResponse(json.dumps({'success' : True , 
-						'credit' : query.credito_normal + query.credito_especial }))
+						'normal_credit' : query.credito_normal , 
+						'especial_credit' : query.credito_especial }))
 		except User.DoesNotExist:
 			return HttpResponse(json.dumps({'success' : False})) 
 
