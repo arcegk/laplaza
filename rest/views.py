@@ -541,12 +541,9 @@ class GetCombosView(View):
 
 	def get(self,request):
 		serializer = ComboSerializer(Combo.objects.all(), many=True)
-		dit = [	"Frijolada","Arroz Mixto","Arroz con pollo","Arroz Antioqueño",
-    			"Arroz Cubano","Ajiaco","Mondonjo","Costilla BBQ","Sancocho de pescado",
-    			"Sancocho de gallina"]
-    	dic = ["Sopa","Carne","Ensalada","Acompañante","Limonada"]
-    	return HttpResponse(json.dumps({'combos' : serializer.data , 
-    			'especial' : dit ,'lunch' : dic}))
+		dit = ["Frijolada","Arroz Mixto","Arroz con pollo","Arroz Antioqueño","Arroz Cubano","Ajiaco","Mondonjo","Costilla BBQ","Sancocho de pescado","Sancocho de gallina"]
+		dic = ["Sopa","Carne","Ensalada","Acompañante","Limonada"]
+		return HttpResponse(json.dumps({'combos' : serializer.data,'especial' : dit ,'lunch' : dic}))
 
 
 class VentaRegisterAPIView(APIView):
@@ -561,15 +558,7 @@ class VentaRegisterAPIView(APIView):
 			cmb = Combo.objects.get(pk=combo)
 			venta = Venta.objects.create(user=query, combo=cmb)
 			return HttpResponse(json.dumps({'success': True, 'id': venta.id}))
-
-
-
-
-
-
-
-
-
-
-
-
+		except User.DoesNotExist:
+			return HttpResponse(json.dumps({'success': False, 'type': 'usuario no existe'}))
+		except Combo.DoesNotExist:
+			return HttpResponse(json.dumps({'success': False, 'type': 'combo no existe'}))
