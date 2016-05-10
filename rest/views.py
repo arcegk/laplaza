@@ -462,7 +462,7 @@ class GetHistoryByPhoneAPIView(APIView):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
 		phn = dta['phone']
-		query = Pedido.objects.filter(telefono=phn)
+		query = Pedido.objects.filter(telefono=phn).order_by('id')
 		lista = []
 		for item in query:
 			lista.append({
