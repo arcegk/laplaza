@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
+from django.core.mail import EmailMultiAlternative
+from django.template_loader import render_to_string
 from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
 import json , ast
 from django.http import HttpResponse
@@ -298,6 +300,7 @@ class UserRegisterApiView(APIView):
 					data['email'] , 
 					data['pass'] ,
 					)
+			user.first_name = data['name']
 			user.empresa = data['company']
 			user.token = data['token']
 			user.telefono = data['phone']
@@ -557,6 +560,13 @@ class VentaRegisterAPIView(APIView):
 			query = User.objects.get(username=phn)
 			cmb = Combo.objects.get(pk=combo)
 			venta = Venta.objects.create(user=query, combo=cmb)
+			context = { "venta" : venta }
+			html = render_to_string('email.html' , context)
+			to = ['arcegk@gmail.com' , 'jose.arce.dev@gmail.com']
+			email = EmailMultiAlternative("Nueva venta en restaurante plaza app" , html ,
+				'Restaurante Plaza' , to)
+			email.attach_alternative(html, 'text/html')
+			email.send()
 			return HttpResponse(json.dumps({'success': True, 'id': venta.id}))
 		except User.DoesNotExist:
 			return HttpResponse(json.dumps({'success': False, 'type': 'usuario no existe'}))
