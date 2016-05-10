@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
 from django.core.mail import EmailMultiAlternatives
-from django.template_loader import render_to_string
+from django.template.loader import render_to_string
 from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
 import json , ast
 from django.http import HttpResponse
