@@ -563,7 +563,7 @@ class VentaRegisterAPIView(APIView):
 			context = { "venta" : venta }
 			html = render_to_string('email.html' , context)
 			to = ['arcegk@gmail.com' , 'jose.arce.dev@gmail.com']
-			email = EmailMultiAlternative("Nueva venta en restaurante plaza app" , html ,
+			email = EmailMultiAlternatives("Nueva venta en restaurante plaza app" , html ,
 				'Restaurante Plaza' , to)
 			email.attach_alternative(html, 'text/html')
 			email.send()
