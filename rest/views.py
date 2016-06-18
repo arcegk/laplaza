@@ -62,7 +62,7 @@ class DesayunoView(View):
 
 class PlatoEspecialView(View):
 
-	def get(self.request):
+	def get(self, request):
 		queryset = Menu.objects.get(pk=1)
 		data = PlatoSerializer(queryset.platos.filter(tipo="ESPECIAL") , many=True)
 		jsn = {'data' : {["ESPECIAL" : data.data]}}
