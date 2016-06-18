@@ -19,7 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
 from django.db import IntegrityError
 from datetime import datetime
-from serializers import ComboSerializer
+from serializers import ComboSerializer, PlatoSerializer
 
 
 
@@ -149,17 +149,10 @@ class DesayunoView(View):
 	
 	def get(self , request):
 		queryset = Menu.objects.get(pk=1)
-		dic = []
-		for obj in queryset.platos.all():			
-			dic.append({
-			'id' : obj.id ,
-			'nombre' : obj.nombre,
-			'tipo' : obj.tipo ,
-			'precio' : obj.precio
-
-					})
-	
-		jsn = {'data' : dic }
+		data = PlatoSerializer(queryset.platos.all(), many=True)
+		
+		dic = [{'DESAYUNO' : data.data}]
+		jsn = {'data' : dic}
 		return HttpResponse (json.dumps(jsn))
 
 
@@ -179,12 +172,9 @@ class BebidaView(View):
 
 				if obj.tipo == "BEBIDA" :
 					dic.append({
-
 						'id' : obj.id ,
 						'nombre' : obj.nombre ,
-						'precio' : obj.precio 
-
-						
+						'precio' : obj.precio 						
 					})
 
 		jsn = {'data' : dic }
@@ -280,6 +270,7 @@ class PedidoApiView(APIView):
 			obj.precio = data['precio']
 			obj.observaciones = data['observaciones']
 			obj.estado = "PENDIENTE"
+			obj.save()
 
 		for itm in data['platos']:
 			plt = Plato.objects.get(pk=itm)
@@ -332,7 +323,6 @@ class ReporteAPIView(APIView):
 
 		for item in queryset:
 			pedido.append({
-
 				'id' : item.id ,
 				'nombre' : item.nombre,
 				'direccion' : item.direccion,
@@ -340,7 +330,6 @@ class ReporteAPIView(APIView):
 				'observaciones' : item.observaciones,
 				'estado' : item.estado,
 				'precio' : item.precio, 
-
 			})
 
 		jsn = {'pedido' : pedido}
