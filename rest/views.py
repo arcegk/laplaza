@@ -131,7 +131,6 @@ class UserInfo(APIView):
 			return HttpResponse(json.dumps({'success' : False}))
 
 	
-
 class PedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
