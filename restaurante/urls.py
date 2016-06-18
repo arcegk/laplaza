@@ -1,11 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from rest.views import AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,\
-    PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,\
-    BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,\
-    AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView , DetalleAPIView ,\
-    CheckRangeAPIView, AuthUserAPIView, GetHistoryByPhoneAPIView , ValidatePremiumUserAPIView,\
-    GetReferenceAPIView, GetUserCreditAPIView, VentaRegisterAPIView , GetCombosView
+from rest.views import (
+AlmuerzoView , MenuDesUpdateView , MenuAlmuerzoUpdateView ,
+PedidoApiView , UserInfo , DesayunoView , UserRegisterApiView ,
+BebidaView , ReporteListView , HomeView , MenuAlmuerzoDetailView , MenuDesayunoDetailView ,
+AjaxStatusView , ReporteAPIView , UpdateStatusAPIView , ConfigAPIView , DetallePedidoAPIView ,
+CheckRangeAPIView, AuthUserAPIView, GetHistoryByPhoneAPIView , ValidatePremiumUserAPIView,
+GetReferenceAPIView, GetUserCreditAPIView, VentaRegisterAPIView , GetCombosView, PlatoEspecialView
+)
 
 urlpatterns = patterns('',
     # Examples:
@@ -84,7 +86,7 @@ urlpatterns = patterns('',
       name="config_api" ),
 
      url(r'^detalle_pedido$' ,
-     DetalleAPIView.as_view() ,
+     DetallePedidoAPIView.as_view() ,
       name="detalle_api" ),
 
      url(r'^checkrange$' ,
@@ -117,7 +119,11 @@ urlpatterns = patterns('',
     
     url(r'^venta$',
         VentaRegisterAPIView.as_view(),
-        name='register_venta')
+        name='register_venta'),
+
+    url(r'^especial$',
+        PlatoEspecialView.as_view(),
+        name='platos_especial')
 
 
 )

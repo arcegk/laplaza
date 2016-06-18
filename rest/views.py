@@ -1,152 +1,57 @@
 # -*- encoding: utf-8 -*-
+
+import json , ast
+from datetime import datetime
+
+from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated , IsAdminUser
+from geopy.distance import great_circle
+
 from django.shortcuts import render
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.views.generic import ListView , View , UpdateView , TemplateView , DetailView
-import json , ast
 from django.http import HttpResponse
-from .models import Plato , Menu , Pedido , User , Config , Ubicacion, Combo , Venta
-from .forms import PanelDesayunosForm , PanelAlmuerzosForm
 from django.core.urlresolvers import reverse, reverse_lazy
-from braces.views import LoginRequiredMixin , StaffuserRequiredMixin , CsrfExemptMixin
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated , IsAdminUser
-from django.contrib.auth import authenticate
-from geopy.distance import great_circle
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator	
 from django.db import IntegrityError
-from datetime import datetime
-from serializers import ComboSerializer, PlatoSerializer
+from django.contrib.auth import authenticate
 
-
-
-# Create your views here.
+from .models import Plato , Menu , Pedido , User , Config , Ubicacion, Combo , Venta
+from .forms import PanelDesayunosForm , PanelAlmuerzosForm
+from .serializers import ComboSerializer, PlatoSerializer
 
 
 class AlmuerzoView(View):
 
-	def get_context_data(self, **kwargs):
-	    context = super(platosListView, self).get_context_data(**kwargs)
-	    return context
-
 	def get(self, request):
 		queryset = Menu.objects.get(pk=2)
-		dic = []
-		sopa = []
-		prin = []
-		carne = []
-		ensa = []
-		bebida = []
-		acom = []
-		arroz = []
-		especial = []
+		platos = []
+		platos_all = queryset.platos.all()
 
-		
-		for item in queryset.platos.all():
-			if item.tipo == "SOPA":
-				sopa.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra
+		sopa = PlatoSerializer(platos_all.filter(tipo="SOPA"), many=True)
+		principio = PlatoSerializer(platos_all.filter(tipo="PRINCIPIO"), many=True)
+		proteina = PlatoSerializer(platos_all.filter(tipo="PROTEINA"), many=True)
+		ensalada = PlatoSerializer(platos_all.filter(tipo="ENSALADA"), many=True)
+		bebida = PlatoSerializer(platos_all.filter(tipo="BEBIDA"), many=True)
+		acompanante = PlatoSerializer(platos_all.filter(tipo="ACOMPANANTE"), many=True)
+		arroz = PlatoSerializer(platos_all.filter(tipo="ARROZ"), many=True)
 
-							})
-			elif item.tipo == "PRINCIPIO":
-				prin.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra
+		platos.extend([{'SOPA' : sopa.data} , {'PRINCIPIO' : principio.data}, {'ARROZ' : arroz.data},
+					{'ENSALADA' : ensalada.data} , {'PROTEINA' : proteina.data}, 
+					{'ACOMPANANTE' : acompanante.data}, {'BEBIDA' : bebida.data}])
 
-							})
-			elif item.tipo == "PROTEINA":
-				carne.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra
-
-							})
-
-			elif item.tipo == "ENSALADA":
-				ensa.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra
-
-							})
-			elif item.tipo == "BEBIDA":
-				bebida.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra
-
-							})
-
-			elif item.tipo == "ACOMPANANTE":
-				acom.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra 
-				})
-
-			elif item.tipo == "ARROZ":
-				arroz.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra 
-				})
-
-			elif item.tipo == "ESPECIAL":
-				especial.append({
-							
-				'id' : item.id ,
-				'nombre' : item.nombre ,
-				'tipo' : item.tipo,
-				'precio' : item.precio,
-				'extra' : item.precio_extra 
-				})
-
-#		dic.append({'ESPECIAL' : especial})
-		dic.append({'SOPA' : sopa})
-		dic.append({'PRINCIPIO' : prin})
-		dic.append({'ARROZ' : arroz})
-		dic.append({'ENSALADA' : ensa})
-		dic.append({'PROTEINA' : carne})
-		dic.append({'ACOMPANANTE' : acom})
-		dic.append({'BEBIDA' : bebida})
-
-		jsn = {'data' : dic }
+		jsn = {'data' : platos }
 
 		return HttpResponse(json.dumps(jsn))
 
 
 class DesayunoView(View):
-	def get_context_data(self, **kwargs):
-	    context = super(desayunosView, self).get_context_data(**kwargs)
-	    return context
-	
+
 	def get(self , request):
 		queryset = Menu.objects.get(pk=1)
 		data = PlatoSerializer(queryset.platos.all(), many=True)
@@ -155,13 +60,16 @@ class DesayunoView(View):
 		jsn = {'data' : dic}
 		return HttpResponse (json.dumps(jsn))
 
+class PlatoEspecialView(View):
+
+	def get(self.request):
+		queryset = Menu.objects.get(pk=1)
+		data = PlatoSerializer(queryset.platos.filter(tipo="ESPECIAL") , many=True)
+		jsn = {'data' : {["ESPECIAL" : data.data]}}
+		return HttpResponse(json.dumps(jsn))
 
 
 class BebidaView(View):
-
-	def get_context_data(self, **kwargs):
-	    context = super(babidaView, self).get_context_data(**kwargs)
-	    return context
 
 	def get(self , request):
 
@@ -177,7 +85,7 @@ class BebidaView(View):
 						'precio' : obj.precio 						
 					})
 
-		jsn = {'data' : dic }
+		jsn = {'data' : [{"BEBIDA" : dic}]}
 
 		return HttpResponse(json.dumps(jsn))
 
@@ -213,10 +121,10 @@ class UserInfo(APIView):
 	def post(self , request):
 
 		js = json.dumps(self.request.data)
-		dta = json.loads(js)
-		phn = dta['phone']
+		data = json.loads(js)
+		phone = data['phone']
 		try :
-			usr = User.objects.get(username=phn)
+			usr = User.objects.get(username=phone)
 			return HttpResponse(json.dumps({'success' : True, 
 				'code' : usr.cod_referido}))
 		except User.DoesNotExist:
@@ -228,49 +136,33 @@ class PedidoApiView(APIView):
 
 	permission_classes = (IsAuthenticated, )
 	
-	def get_context_data(self, **kwargs):
-	    context = super(pedidoApiView, self).get_context_data(**kwargs)
-	    return context
-
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
 		print dta
 		data = dta['data'] 
-		obj = Pedido()
 		try:
-			us = User.objects.get(username=data['telefono'])
-			obj.user = us
-			obj.nombre = data['nombre']		
-			obj.direccion = data['direccion']
-			obj.empresa = data['empresa']
-			obj.telefono = data['telefono']
-			obj.precio = data['precio']
-			obj.observaciones = data['observaciones']
-			obj.estado = "PENDIENTE"
-			if us.is_premium:
+			user = User.objects.get(username=data['telefono'])
+			obj = Pedido.objects.create(user=user, nombre=data['nombre'], direccion=data['direccion'],
+											empresa=data['empresa'], telefono=data['telefono'], precio=data['precio'],
+											observaciones=data['observaciones'], estado="PENDIENTE")
+			if user.is_premium:
 				if data['is_especial']:
-					if us.credito_especial > 0:
-						us.credito_especial = credito_especial - 1
+					if user.credito_especial > 0:
+						user.credito_especial = credito_especial - 1
 						obj.cobrar = False
 				else :
-					if us.credito_normal > 0:
-						us.credito_normal = credito_normal - 1
+					if user.credito_normal > 0:
+						user.credito_normal = credito_normal - 1
 						obj.cobrar = False
-			us.save()
+			user.save()
 			obj.save()
 
 		except User.DoesNotExist:
-			us = User.objects.get(username="generic")
-			obj.user = us
-			obj.nombre = data['nombre']		
-			obj.direccion = data['direccion']
-			obj.empresa = data['empresa']
-			obj.telefono = data['telefono']
-			obj.precio = data['precio']
-			obj.observaciones = data['observaciones']
-			obj.estado = "PENDIENTE"
-			obj.save()
+			user = User.objects.get(username="generic")
+			obj = Pedido.objects.create(user=user, nombre=data['nombre'], direccion=data['direccion'],
+											empresa=data['empresa'], telefono=data['telefono'], precio=data['precio'],
+											observaciones=data['observaciones'], estado="PENDIENTE")
 
 		for itm in data['platos']:
 			plt = Plato.objects.get(pk=itm)
@@ -312,10 +204,6 @@ class UserRegisterApiView(APIView):
 class ReporteAPIView(APIView):
 
 	permission_classes = (IsAdminUser, )
-
-	def get_context_data(self, **kwargs):
-		context = super(ReporteListView, self).get_context_data(**kwargs)
-		return context
 	
 	def get(self, request):
 		pedido = []
@@ -337,7 +225,7 @@ class ReporteAPIView(APIView):
 
 
 
-class DetalleAPIView(APIView):
+class DetallePedidoAPIView(APIView):
 
 	permission_classes = (IsAdminUser, )
 
@@ -450,8 +338,8 @@ class GetHistoryByPhoneAPIView(APIView):
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
-		phn = dta['phone']
-		query = Pedido.objects.filter(telefono=phn).order_by('-id')
+		phone = dta['phone']
+		query = Pedido.objects.filter(telefono=phone).order_by('-id')
 		lista = []
 		for item in query:
 			lista.append({
@@ -471,9 +359,9 @@ class ValidatePremiumUserAPIView(APIView):
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
-		phn = dta['phone']
+		phone = dta['phone']
 		try:
-			query = User.objects.get(username=phn)
+			query = User.objects.get(username=phone)
 			if query.is_premium:
 				return HttpResponse(json.dumps({'success' : True , 'is_premium' : True}))
 			else:
@@ -488,10 +376,10 @@ class AuthUserAPIView(APIView):
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
-		phn = dta['phone']
+		phone = dta['phone']
 		pss = dta['pass']
 		try:
-			user = authenticate(username=phn, password=pss)
+			user = authenticate(username=phone, password=pss)
 			if user is not None:
 				return HttpResponse(json.dumps({'success' : True , 'auth' : True}))
 			else:
@@ -505,9 +393,9 @@ class GetReferenceAPIView(APIView):
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
-		phn = dta['phone']
+		phone = dta['phone']
 		try:
-			query = User.objects.get(username=phn)
+			query = User.objects.get(username=phone)
 			return HttpResponse(json.dumps({'success' : True , 
 				'reference' : query.cod_referido }))
 		except:
@@ -519,9 +407,9 @@ class GetUserCreditAPIView(APIView):
 	def post(self,request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
-		phn = dta['phone']
+		phone = dta['phone']
 		try:
-			query = User.objects.get(username=phn)
+			query = User.objects.get(username=phone)
 			return HttpResponse(json.dumps({'success' : True , 
 						'normal_credit' : query.credito_normal , 
 						'especial_credit' : query.credito_especial }))
@@ -543,10 +431,10 @@ class VentaRegisterAPIView(APIView):
 	def post(self, request):
 		js = json.dumps(self.request.data)
 		dta = json.loads(js)
-		phn = dta['phone']
+		phone = dta['phone']
 		combo = dta['id_combo']
 		try:
-			query = User.objects.get(username=phn)
+			query = User.objects.get(username=phone)
 			cmb = Combo.objects.get(pk=combo)
 			venta = Venta.objects.create(user=query, combo=cmb)
 			context = { "venta" : venta }
