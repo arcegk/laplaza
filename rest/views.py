@@ -55,7 +55,7 @@ class DesayunoView(View):
 	def get(self , request):
 		queryset = Menu.objects.get(pk=1)
 		bebida = queryset.platos.filter(tipo="BEBIDA")
-		princiapl = query.platos.filter(tipo="PRINCIPAL")
+		princiapl = queryset.platos.filter(tipo="PRINCIPAL")
 		data_bebida = PlatoSerializer(bebida, many=True)
 		data_principal = PlatoSerializer(bebida, many=True)
 		dic = [{'BEBIDA' : data_bebida.data, 'PRINCIPAL' : data_principal.data}]
