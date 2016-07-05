@@ -57,7 +57,7 @@ class DesayunoView(View):
 		bebida = queryset.platos.filter(tipo="BEBIDA")
 		princiapl = queryset.platos.filter(tipo="PRINCIPAL")
 		data_bebida = PlatoSerializer(bebida, many=True)
-		data_principal = PlatoSerializer(bebida, many=True)
+		data_principal = PlatoSerializer(princiapl, many=True)
 		dic = [{'BEBIDA' : data_bebida.data, 'PRINCIPAL' : data_principal.data}]
 		jsn = {'data' : dic}
 		return HttpResponse (json.dumps(jsn))
